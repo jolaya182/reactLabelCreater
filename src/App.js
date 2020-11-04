@@ -7,7 +7,7 @@
  *
  * description: this is the main component that handles the entire web application
  */
-import "./css/app.css";
+import "./core/css/app.css";
 import ShippingLabelMaker from "./core/components/features/shipping-label-maker/shippingLabelMaker";
 
 /**
