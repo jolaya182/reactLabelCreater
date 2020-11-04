@@ -1,26 +1,28 @@
-import logo from './logo.svg';
-import './css/app.css';
-import Wizard from './core/components/wizard/wizard';
+/**
+ * title: app.jsx
+ *
+ * date: 11/4/2020
+ *
+ * author: javier olaya
+ *
+ * description: this is the main component that handles the entire web application
+ */
+import "./css/app.css";
+import ShippingLabelMaker from "./core/components/features/shipping-label-maker/shippingLabelMaker";
 
+/**
+ *
+ *
+ * @function App {*}
+ */
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Wizard></Wizard>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="App">
+        <header className="App-header">
+          <ShippingLabelMaker></ShippingLabelMaker>
+         {"app"}
+        </header>
+      </div>
   );
 }
 

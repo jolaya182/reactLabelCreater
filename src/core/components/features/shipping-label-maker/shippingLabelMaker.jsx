@@ -5,11 +5,14 @@
  *
  * author: javier olaya
  *
- * description: this component handles the wizard aspect of the application
+ * description: this component handles the shippingLabelmaker aspect of the application
  */
-// import './../../../../css/app.css';
+
 import Wizard from '../../wizard/wizard';
 
+/**
+ * @function ShippingLabelMaker
+ */
 function ShippingLabelMaker() {
     const shippingObject = {
         receiver:{

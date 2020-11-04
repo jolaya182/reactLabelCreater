@@ -19,16 +19,14 @@ import './../../../css/app.css';
  */
 export default class Wizard extends React.Component {
     constructor(props){
-        console.log(props.shippingObject)
         super(props);
         this.state = {
             wizardContext : props.shippingObject
         }
     }
     render(){
-        const {shippingObject} = this.state;
         return(
-        <div>{"tool"}{shippingObject}</div>
+        <div>{"wizard"}</div>
         )
     }
 }
