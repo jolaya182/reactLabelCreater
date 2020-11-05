@@ -110,6 +110,7 @@ export default class Wizard extends React.Component {
           <div>
             <div onClick={clickPrev}>
               {"<pre>"}
+<<<<<<< HEAD
               {currentStep !== 1 ? prev : null}
             </div>
 
@@ -118,6 +119,19 @@ export default class Wizard extends React.Component {
             <div onClick={clickNext}>
               {"<next>"}
               {currentStep !== end ? next : null}
+=======
+              { currentStep !== 1 ? prev: null}
+            </div>
+
+            <div onClick={clickNext}>
+              {` < ${currentStep} > `}
+              
+            </div>
+
+            <div onClick={clickNext}>
+              {"<next>"}
+              { currentStep !== end ? next: null}
+>>>>>>> added 'currentStep', 'prev' and 'next' numbers to the navigation buttons'
             </div>
           </div>
         </form>
