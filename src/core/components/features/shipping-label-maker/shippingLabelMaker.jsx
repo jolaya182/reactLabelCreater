@@ -19,16 +19,18 @@ function ShippingLabelMaker() {
             name:null,
             street:null,
             city:null,
+            state:null,
             zip:null
         },
         sender:{
             name:null,
             street:null,
             city:null,
+            state:null,
             zip:null
         },
         weight: 0,
-        shippingOption:1
+        shippingOption:1, 
     };
     return(
         <Wizard shippingObject={shippingObject}/> 
