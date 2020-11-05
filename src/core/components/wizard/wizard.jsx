@@ -40,15 +40,10 @@ export default class Wizard extends React.Component {
   clickNext = () => {
     const { wizardAction, currentStep } = this.state;
     const { prev, next, end } = wizardAction;
-<<<<<<< HEAD
     let newPrev = prev;
     let newNext = next;
     let newCurrentStep = currentStep;
 
-=======
-    let newPrev  = prev; let newNext = next; let newCurrentStep = currentStep;
-    
->>>>>>> place css folder inside the core folder and create steps and 'prev' + 'next' functionality
     // avoid having the 'currentStep' pass the end
     if (currentStep !== end) newCurrentStep = currentStep + 1;
 
@@ -57,13 +52,8 @@ export default class Wizard extends React.Component {
 
     // assure that the 'prev' is either at the beginning or 1 steps apart from
     // the current step
-<<<<<<< HEAD
     if (prev + 2 === newCurrentStep && prev !== end - 1) newPrev = prev + 1;
 
-=======
-    if (prev + 2 === newCurrentStep && prev !== end-1) newPrev = prev + 1;
-    
->>>>>>> place css folder inside the core folder and create steps and 'prev' + 'next' functionality
     this.setState({
       currentStep: newCurrentStep,
       wizardAction: { prev: newPrev, next: newNext, end: end },
@@ -73,17 +63,11 @@ export default class Wizard extends React.Component {
   clickPrev = () => {
     const { wizardAction, currentStep } = this.state;
     const { prev, next, end } = wizardAction;
-<<<<<<< HEAD
 
     let newPrev = prev;
     let newNext = next;
     let newCurrentStep = currentStep;
 
-=======
-    
-    let newPrev  = prev; let newNext = next; let newCurrentStep = currentStep;
-    
->>>>>>> place css folder inside the core folder and create steps and 'prev' + 'next' functionality
     // avoid having the 'currentStep' pass the beginning
     if (currentStep !== 1) newCurrentStep = currentStep - 1;
 
@@ -92,31 +76,18 @@ export default class Wizard extends React.Component {
     if (next - 2 === newCurrentStep) newNext = next - 1;
 
     // avoid having the 'pre' pass the beginning
-<<<<<<< HEAD
     if (prev === newCurrentStep && prev !== 1) newPrev = prev - 1;
-=======
-    if (prev === newCurrentStep &&  prev !== 1) newPrev = prev - 1;
->>>>>>> place css folder inside the core folder and create steps and 'prev' + 'next' functionality
 
     this.setState({
       currentStep: newCurrentStep,
       wizardAction: { prev: newPrev, next: newNext, end: end },
     });
-<<<<<<< HEAD
-=======
-
->>>>>>> place css folder inside the core folder and create steps and 'prev' + 'next' functionality
   };
 
   render() {
     const { wizardContext, currentStep, total, wizardAction } = this.state;
-<<<<<<< HEAD
     const { clickNext, clickPrev } = this;
     const { prev, next, end } = wizardAction;
-=======
-    const {clickNext, clickPrev} = this;
-    // const { wizardAction } = wizardContext;
->>>>>>> place css folder inside the core folder and create steps and 'prev' + 'next' functionality
     return (
       <div>
         <form>
@@ -137,7 +108,6 @@ export default class Wizard extends React.Component {
             }[currentStep]
           }
           <div>
-<<<<<<< HEAD
             <div onClick={clickPrev}>
               {"<pre>"}
               {currentStep !== 1 ? prev : null}
@@ -149,10 +119,6 @@ export default class Wizard extends React.Component {
               {"<next>"}
               {currentStep !== end ? next : null}
             </div>
-=======
-            <div onClick={clickPrev}>{"<pre>"}</div>
-            <div onClick={clickNext}>{"<next>"}</div>
->>>>>>> place css folder inside the core folder and create steps and 'prev' + 'next' functionality
           </div>
         </form>
       </div>
