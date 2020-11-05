@@ -12,15 +12,36 @@
 import React from "react";
 import Step from "./step";
 
-const StepSender = ({wizardContext}) => {
-  const {receiver} = wizardContext;
-  const {name, street, city,state, zip} = receiver;
-  return (<Step  >
+const StepSender = ({ wizardContext, handleSender }) => {
+  const { receiver } = wizardContext;
+  const { name, street, city, state, zip } = receiver;
+  return (
+    <Step>
       {"StepSender"}
       {"Enter the sender's address"}
-  <div>{"name"}<input type="text"></input>{name}</div>
-  <div>{"street"}<input type="text"></input>{street}</div>
-  <div>{"city"}<input type="text"></input>{city}<input type="text"></input>{state}{" zip"}<input type="text"></input>{zip}</div>
-    </Step>);
+      <div>
+        <label>{"name"}
+        <input  name={"name"} onChange={handleSender} value={name} type="text"/>
+        </label>
+      </div>
+      <div>
+      <label>{"street"}
+        <input  name={"street"} onChange={handleSender} value={street} type="text"/>
+      </label>
+      </div>
+
+      <div>
+      <label>{"city"}
+        <input  name={"city"} onChange={handleSender} value={city} type="text"/>
+      </label>
+      <label>{"state"}
+        <input  name={"state"} onChange={handleSender} value={state}type="text"/>
+      </label>
+      <label>{"zip"}
+        <input  name={"zip"} onChange={handleSender} value={zip} type="text"/>
+      </label>
+      </div>
+    </Step>
+  );
 };
 export default StepSender;

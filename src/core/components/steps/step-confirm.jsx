@@ -12,18 +12,29 @@
 import React from "react";
 import Step from "./step";
 
-const StepConfirm = ({ wizardContext, total }) => {
+const StepConfirm = ({ wizardContext, shippingCost }) => {
   const { weight, shippingOption } = wizardContext;
   return (
     <Step>
       {"StepConfirm"}
       <div>
-        <div> {"weight"}
-        <input type="text"></input>{weight} </div>
-        <div> {"option"}
-        <input type="text"></input>{shippingOption} </div>
-        <div> {"total"}
-        <input type="text"></input>{total} </div>
+        <div>
+          {"weight: "}
+          {weight}
+        </div>
+        <div>
+          {"option: "}
+          {
+            {
+              ground: <div type="text">{"ground"}</div>,
+              priority: <div type="text">{"priority"}</div>,
+            }[shippingOption]
+          }
+        </div>
+        <div>
+          {"total: $"}
+          {shippingCost}
+        </div>
       </div>
     </Step>
   );

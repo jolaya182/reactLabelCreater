@@ -12,12 +12,40 @@
 import React from "react";
 import Step from "./step";
 
-const StepOption = ({wizardContext}) => {
-  const {shippingOption} = wizardContext;
-  return (<Step  >
-      {"StepOption"}
-  <div>{"shippingOption"}<input type="text"></input>{shippingOption}</div>
-     
-    </Step>);
+const StepOption = ({ wizardContext, handleShippingOption }) => {
+  const { shippingOption } = wizardContext;
+
+  console.log(
+    "shippingOption->",
+    shippingOption,
+    shippingOption === "priority"
+  );
+  return (
+    <Step>
+      {/* <form> */}
+        <label>
+          {"ground"}
+          <input
+            type="radio"
+            value="red"
+            checked={shippingOption === "ground"}
+            name="ground"
+            onChange={handleShippingOption}
+          />
+        </label>
+
+        <label>
+          {"priority"}
+          <input
+            type="radio"
+            value="red"
+            checked={shippingOption === "priority"}
+            name="priority"
+            onChange={handleShippingOption}
+          />
+        </label>
+      {/* </form> */}
+    </Step>
+  );
 };
 export default StepOption;

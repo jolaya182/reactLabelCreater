@@ -25,14 +25,13 @@ import StepConfirm from "./../steps/step-confirm";
 export default class Wizard extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      wizardContext: props.shippingObject,
       wizardAction: {
         prev: 1,
         next: 2,
         end: 5,
       },
-      total: 0,
       currentStep: 1,
     };
   }
@@ -85,42 +84,73 @@ export default class Wizard extends React.Component {
   };
 
   render() {
-    const { wizardContext, currentStep, total, wizardAction } = this.state;
+    const { wizardContext } = this.props;
+    const { shippingOption, shippingCost } = wizardContext;
+    const { currentStep, wizardAction } = this.state;
     const { clickNext, clickPrev } = this;
+    const {
+      handleShippingOption,
+      handleWeight,
+      handleSender,
+      handleReceiver,
+    } = this.props;
     const { prev, next, end } = wizardAction;
+
+    console.log("shipping Otion", shippingOption);
+
     return (
       <div>
-        <form>
-          <div>{"Shipping Label Maker"}</div>
-          <div type="text"> {"load bar |------------|"}</div>
+        {/* <form> */}
+        <div>{"Shipping Label Maker"}</div>
+        <div type="text"> {"load bar |------------|"}</div>
+        {
           {
-            {
-              1: <StepReceiver wizardContext={wizardContext}></StepReceiver>,
-              2: <StepSender wizardContext={wizardContext}></StepSender>,
-              3: <StepWeight wizardContext={wizardContext}></StepWeight>,
-              4: <StepOption wizardContext={wizardContext}></StepOption>,
-              5: (
-                <StepConfirm
-                  wizardContext={wizardContext}
-                  total={total}
-                ></StepConfirm>
-              ),
-            }[currentStep]
-          }
-          <div>
-            <div onClick={clickPrev}>
-              {"<pre>"}
-              {currentStep !== 1 ? prev : null}
-            </div>
-
-            <div onClick={clickNext}>{` < ${currentStep} > `}</div>
-
-            <div onClick={clickNext}>
-              {"<next>"}
-              {currentStep !== end ? next : null}
-            </div>
+            1: (
+              <StepReceiver
+                wizardContext={wizardContext}
+                handleReceiver={handleReceiver}
+              ></StepReceiver>
+            ),
+            2: (
+              <StepSender
+                wizardContext={wizardContext}
+                handleSender={handleSender}
+              ></StepSender>
+            ),
+            3: (
+              <StepWeight
+                wizardContext={wizardContext}
+                handleWeight={handleWeight}
+              ></StepWeight>
+            ),
+            4: (
+              <StepOption
+                wizardContext={wizardContext}
+                handleShippingOption={handleShippingOption}
+              ></StepOption>
+            ),
+            5: (
+              <StepConfirm
+                wizardContext={wizardContext}
+                shippingCost={shippingCost}
+              ></StepConfirm>
+            ),
+          }[currentStep]
+        }
+        <div>
+          <div onClick={clickPrev}>
+            {"<pre>"}
+            {currentStep !== 1 ? prev : null}
           </div>
-        </form>
+
+          <div onClick={clickNext}>{` < ${currentStep} > `}</div>
+
+          <div onClick={clickNext}>
+            {"<next>"}
+            {currentStep !== end ? next : null}
+          </div>
+        </div>
+        {/* </form> */}
       </div>
     );
   }

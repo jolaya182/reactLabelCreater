@@ -12,12 +12,21 @@
 import React from "react";
 import Step from "./step";
 
-const StepWeight = ({wizardContext}) => {
-  const {weight} = wizardContext;
-  return (<Step  >
+const StepWeight = ({ wizardContext, handleWeight }) => {
+  const { weight } = wizardContext;
+  return (
+    <Step>
       {"StepWeight"}
-  <div>{"weight"}<input type="text"></input>{weight}</div>
-     
-    </Step>);
+      <div><label>{"weight"}
+        <input
+          name="weight"
+          type="text"
+          value={weight}
+          onChange={handleWeight}
+        ></input>
+        </label>
+      </div>
+    </Step>
+  );
 };
 export default StepWeight;
