@@ -15,17 +15,22 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+/**
+ * description: form with the sender's input
+ *
+ * @param {object, function} { wizardContext, handleReceiver }
+ * @return {html element}
+ */
 const StepSender = ({ wizardContext, handleSender }) => {
   const { sender } = wizardContext;
   const { name, street, city, state, zip } = sender;
   return (
     <Step>
       <Form.Group as={Row}>
-      <Form.Label column sm={5}>
+        <Form.Label column sm={5}>
           {"Enter the sender's address"}
-        </Form.Label>        
-        <Col sm={6}> 
-        </Col >
+        </Form.Label>
+        <Col sm={6}></Col>
         <Form.Label column sm={2}>
           {"name"}
         </Form.Label>

@@ -15,6 +15,12 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+/**
+ * description: form with the shipping option
+ *
+ * @param {object, function} { wizardContext, handleWeight }
+ * @return {html element}
+ */
 const StepOption = ({ wizardContext, handleShippingOption }) => {
   const { shippingOption } = wizardContext;
 

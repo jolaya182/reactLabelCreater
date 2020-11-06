@@ -10,12 +10,19 @@
  */
 
 import React from "react";
-import Form from 'react-bootstrap/Form'
-import barCode from './../../../../pic/barCode.svg' ;//barCode
+import Form from "react-bootstrap/Form";
+import barCode from "./../../../../pic/barCode.svg"; //barCode
 
+/**
+ * description: form with the completed details
+ *
+ * @return {html element}
+ */
 const ShippingLabel = () => {
-  return <Form.Group>
-    <img src={barCode} alt={`bar code`} />
-  </Form.Group>;
+  return (
+    <Form.Group>
+      <img src={barCode} alt={`bar code`} />
+    </Form.Group>
+  );
 };
 export default ShippingLabel;

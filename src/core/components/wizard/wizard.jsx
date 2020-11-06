@@ -21,8 +21,10 @@ import Button from "react-bootstrap/Button";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import PropTypes from "prop-types";
+
 /**
- *
+ * description:
  *
  * @export
  * @class Wizard
@@ -41,10 +43,17 @@ export default class Wizard extends React.Component {
       },
       currentStep: 1,
       buttonResolved: "next",
-      errorMessage:[]
+      errorMessage: [],
     };
   }
 
+  /**
+   * description: directs to the next or previous step
+   *
+   * @param {*} wizardAction
+   * @memberof Wizard
+   * @return 
+   */
   onAction = (wizardAction) => {
     switch (wizardAction.type) {
       case "prev":
@@ -56,6 +65,12 @@ export default class Wizard extends React.Component {
     }
   };
 
+  /**
+   * description: updates the wizard action to point to the right
+   *
+   * @param {*} wizardAction
+   * @memberof Wizard
+   */
   clickNext = (wizardAction) => {
     const { currentStep } = this.state;
     const { prev, next, end } = wizardAction;
@@ -75,14 +90,20 @@ export default class Wizard extends React.Component {
 
     // find out which button to render
     const buttonResolved = this.resolveRightButton(newCurrentStep, end);
-    
+
     this.setState({
       currentStep: newCurrentStep,
-      wizardAction: { prev: newPrev, next: newNext, end: end }, 
-      buttonResolved:buttonResolved,
+      wizardAction: { prev: newPrev, next: newNext, end: end },
+      buttonResolved: buttonResolved,
     });
   };
 
+  /**
+   * description: updates the wizard action to point to the left
+   *
+   * @param {*} wizardAction
+   * @memberof Wizard
+   */
   clickPrev = (wizardAction) => {
     const { currentStep } = this.state;
     const { prev, next, end } = wizardAction;
@@ -107,45 +128,74 @@ export default class Wizard extends React.Component {
     this.setState({
       currentStep: newCurrentStep,
       wizardAction: { prev: newPrev, next: newNext, end: end },
-      buttonResolved:buttonResolved
+      buttonResolved: buttonResolved,
     });
   };
 
+  /**
+   * description: percentage calculation made to update the progress bar
+   *
+   * @memberof Wizard
+   * @return 
+   */
   caculateProgress = () => {
     const { currentStep, wizardAction } = this.state;
     const { end } = wizardAction;
     return (currentStep * 100) / end;
   };
 
-  resolveRightButton = (currentStep, end)=>{
-    if(currentStep === end ){
-      return "end"
-    }else if(currentStep === end-1) return "submit"
-    
-    return "next"
-  }
+  /**
+   * description: determine which button to place on the right hand
+   * of the pagination
+   *
+   * @param {int} currentStep
+   * @param {int} end
+   * @memberof Wizard
+   * @return {
+   */
+  resolveRightButton = (currentStep, end) => {
+    if (currentStep === end) {
+      return "end";
+    } else if (currentStep === end - 1) return "submit";
 
+    return "next";
+  };
+
+  /**
+   * description:
+   *
+   * @param {array} isFormValid
+   * @memberof Wizard
+   */
   submitConfirmation = (isFormValid) => {
-    console.log("form request submission", "isFormValid",isFormValid);
     const { wizardAction } = this.state;
     const { end } = wizardAction;
     // const anyErrors = this.validateForm();
-    if(!isFormValid){
-      this.setState({ currentStep: end, buttonResolved: "end", errorMessage:[] });}
-    this.setState({errorMessage:isFormValid});
-
+    if (!isFormValid) {
+      this.setState({
+        currentStep: end,
+        buttonResolved: "end",
+        errorMessage: [],
+      });
+    }
+    this.setState({ errorMessage: isFormValid });
   };
 
   render() {
     const { wizardContext } = this.props;
-    const { currentStep, wizardAction, buttonResolved, errorMessage } = this.state;
+    const {
+      currentStep,
+      wizardAction,
+      buttonResolved,
+      errorMessage,
+    } = this.state;
     const { onAction, caculateProgress, submitConfirmation } = this;
     const {
       handleShippingOption,
       handleWeight,
       handleSender,
       handleReceiver,
-      isDataInputsValid
+      isDataInputsValid,
     } = this.props;
 
     return (
@@ -213,42 +263,49 @@ export default class Wizard extends React.Component {
               {currentStep}
             </Form.Label>
 
-            {{
-              "next": (
-                <Button
-                  size="lg"
-                  variant="info"
-                  onClick={() =>
-                    onAction({ ...wizardAction, type: "next" })
-                  }
-                >
-                  {"Next"}
-                </Button>
-              ),
-              "submit": (
-                <Button
-                  size="lg"
-                  variant="info"
-                  onClick={()=>{
-                    submitConfirmation(isDataInputsValid())
-                  }}
-                >
-                  {"Submit"}
-                </Button>
-              ),
-              "end": null,
-
-             }[buttonResolved]
+            {
+              {
+                next: (
+                  <Button
+                    size="lg"
+                    variant="info"
+                    onClick={() => onAction({ ...wizardAction, type: "next" })}
+                  >
+                    {"Next"}
+                  </Button>
+                ),
+                submit: (
+                  <Button
+                    size="lg"
+                    variant="info"
+                    onClick={() => {
+                      submitConfirmation(isDataInputsValid());
+                    }}
+                  >
+                    {"Submit"}
+                  </Button>
+                ),
+                end: null,
+              }[buttonResolved]
             }
           </Col>
           <Col sm={2}></Col>
         </Form.Group>
         <Form.Group>
-          {errorMessage && errorMessage.map((message,indx)=>{
-            return<Form.Label as={Row} key={`error-message-${indx}`} ><Col>{message}</Col></Form.Label>
-          })}
+          {errorMessage &&
+            errorMessage.map((message, indx) => {
+              return (
+                <Form.Label as={Row} key={`error-message-${indx}`}>
+                  <Col>{message}</Col>
+                </Form.Label>
+              );
+            })}
         </Form.Group>
       </Form>
     );
   }
 }
+
+Wizard.propTypes = {
+  Fordm: PropTypes.element,
+};
