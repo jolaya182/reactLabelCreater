@@ -28,14 +28,14 @@ export default class ShippingLabelMaker extends React.Component {
           street: "",
           city: "",
           state: "",
-          zip: "",
+          zip: 0,
         },
         sender: {
           name: "",
           street: "",
           city: "",
           state: "",
-          zip: "",
+          zip: 0,
         },
         weight: 0,
         shippingOption: null,
@@ -100,6 +100,53 @@ export default class ShippingLabelMaker extends React.Component {
     return num.toFixed(2);
   };
 
+  isDataInputsValid = ()=>{
+
+      const {shippingObject} = this.state;
+      const {receiver, sender, weight, shippingOption} = shippingObject;
+      const regexNumbers = /[0-9]/g;
+
+      let isFormValid = [];
+      // validate receiver
+      const isReceiverPlaceValid = this.isPlaceValid(receiver);
+      if(isReceiverPlaceValid)isFormValid = isFormValid.concat(isReceiverPlaceValid);
+      
+      //validate  sender
+      const isSenderPlaceValid = this.isPlaceValid(sender);
+      if(isSenderPlaceValid)isFormValid = isFormValid.concat(isSenderPlaceValid);
+      
+      //validate weight
+      if( !weight.match(regexNumbers) ) isFormValid.push( "weight is not a correct number");
+
+      //validate option
+      if( !(shippingOption === "ground" || shippingOption === "priority") ) isFormValid.push( "shipping option was not submitted");
+    
+      return isFormValid.length > 0 ? isFormValid: null;
+  }
+
+  isPlaceValid = (place)=>{
+    const {name,street,city,state,zip} = place ;
+    const regexLetters = /[A-Za-z]/g;
+    const regexNumbers = /[0-9]/g;
+    const placeErrors = [];
+    
+    //validate name
+    if(!name.match(regexLetters))placeErrors.push("one of the names are not all letters");
+    
+    //validate street
+    if(!street.match(regexLetters))placeErrors.push("one of the street names are not all letters");
+    
+    //validate city
+    if(!city.match(regexLetters))placeErrors.push("one of the city names are not all letters");
+    
+    //validate state
+    if(!state.match(regexLetters))placeErrors.push("one of the state names are not all letters");
+
+    //validate zip
+    if( !zip.match(regexNumbers) ) placeErrors.push( "zip  is not a correct number");
+
+    return placeErrors.length > 0 ? placeErrors: null;
+  }
   render() {
     const { shippingObject } = this.state;
     const {
@@ -107,6 +154,7 @@ export default class ShippingLabelMaker extends React.Component {
       handleWeight,
       handleSender,
       handleReceiver,
+      isDataInputsValid
     } = this;
     // console.log("shippingObject____", shippingObject.shippingOption);
     return (
@@ -116,6 +164,7 @@ export default class ShippingLabelMaker extends React.Component {
         handleWeight={handleWeight}
         handleSender={handleSender}
         handleReceiver={handleReceiver}
+        isDataInputsValid={isDataInputsValid}
       />
     );
   }

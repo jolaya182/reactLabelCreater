@@ -40,7 +40,8 @@ export default class Wizard extends React.Component {
         end: 6,
       },
       currentStep: 1,
-      buttonResolved: "next"
+      buttonResolved: "next",
+      errorMessage:[]
     };
   }
 
@@ -124,22 +125,27 @@ export default class Wizard extends React.Component {
     return "next"
   }
 
-  submitConfirmation = () => {
-    console.log("form request submission");
+  submitConfirmation = (isFormValid) => {
+    console.log("form request submission", "isFormValid",isFormValid);
     const { wizardAction } = this.state;
     const { end } = wizardAction;
-    this.setState({ currentStep: end, buttonResolved: "end" });
+    // const anyErrors = this.validateForm();
+    if(!isFormValid){
+      this.setState({ currentStep: end, buttonResolved: "end", errorMessage:[] });}
+    this.setState({errorMessage:isFormValid});
+
   };
 
   render() {
     const { wizardContext } = this.props;
-    const { currentStep, wizardAction, buttonResolved } = this.state;
+    const { currentStep, wizardAction, buttonResolved, errorMessage } = this.state;
     const { onAction, caculateProgress, submitConfirmation } = this;
     const {
       handleShippingOption,
       handleWeight,
       handleSender,
       handleReceiver,
+      isDataInputsValid
     } = this.props;
 
     return (
@@ -223,7 +229,9 @@ export default class Wizard extends React.Component {
                 <Button
                   size="lg"
                   variant="info"
-                  onClick={submitConfirmation}
+                  onClick={()=>{
+                    submitConfirmation(isDataInputsValid())
+                  }}
                 >
                   {"Submit"}
                 </Button>
@@ -234,6 +242,11 @@ export default class Wizard extends React.Component {
             }
           </Col>
           <Col sm={2}></Col>
+        </Form.Group>
+        <Form.Group>
+          {errorMessage && errorMessage.map((message,indx)=>{
+            return<Form.Label as={Row} key={`error-message-${indx}`} ><Col>{message}</Col></Form.Label>
+          })}
         </Form.Group>
       </Form>
     );
