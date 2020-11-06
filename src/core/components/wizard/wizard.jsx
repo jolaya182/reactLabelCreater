@@ -14,6 +14,8 @@ import StepSender from "./../steps/step-sender";
 import StepWeight from "./../steps/step-weight";
 import StepOption from "./../steps/step-option";
 import StepConfirm from "./../steps/step-confirm";
+import StepComplete from "./../steps/step-complete";
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ProgressBar from "react-bootstrap/ProgressBar";
@@ -35,9 +37,10 @@ export default class Wizard extends React.Component {
         type: "",
         prev: 1,
         next: 2,
-        end: 5,
+        end: 6,
       },
-      currentStep: 4,
+      currentStep: 1,
+      buttonResolved: "next"
     };
   }
 
@@ -69,9 +72,13 @@ export default class Wizard extends React.Component {
     // the current step
     if (prev + 2 === newCurrentStep && prev !== end - 1) newPrev = prev + 1;
 
+    // find out which button to render
+    const buttonResolved = this.resolveRightButton(newCurrentStep, end);
+    
     this.setState({
       currentStep: newCurrentStep,
-      wizardAction: { prev: newPrev, next: newNext, end: end },
+      wizardAction: { prev: newPrev, next: newNext, end: end }, 
+      buttonResolved:buttonResolved,
     });
   };
 
@@ -93,26 +100,40 @@ export default class Wizard extends React.Component {
     // avoid having the 'pre' pass the beginning
     if (prev === newCurrentStep && prev !== 1) newPrev = prev - 1;
 
+    // find out which button to render
+    const buttonResolved = this.resolveRightButton(newCurrentStep, end);
+
     this.setState({
       currentStep: newCurrentStep,
       wizardAction: { prev: newPrev, next: newNext, end: end },
+      buttonResolved:buttonResolved
     });
   };
 
   caculateProgress = () => {
     const { currentStep, wizardAction } = this.state;
-    const {end} = wizardAction;
+    const { end } = wizardAction;
     return (currentStep * 100) / end;
   };
 
-  submitConfirmation = () => {
+  resolveRightButton = (currentStep, end)=>{
+    if(currentStep === end ){
+      return "end"
+    }else if(currentStep === end-1) return "submit"
+    
+    return "next"
+  }
 
+  submitConfirmation = () => {
+    console.log("form request submission");
+    const { wizardAction } = this.state;
+    const { end } = wizardAction;
+    this.setState({ currentStep: end, buttonResolved: "end" });
   };
 
   render() {
     const { wizardContext } = this.props;
-    const { currentStep, wizardAction } = this.state;
-    const { end } = wizardAction;
+    const { currentStep, wizardAction, buttonResolved } = this.state;
     const { onAction, caculateProgress, submitConfirmation } = this;
     const {
       handleShippingOption,
@@ -122,7 +143,7 @@ export default class Wizard extends React.Component {
     } = this.props;
 
     return (
-      <Form >
+      <Form>
         <Form.Group>
           {/* <form> */}
           <Form.Label>{"Shipping Label Maker"}</Form.Label>
@@ -167,11 +188,8 @@ export default class Wizard extends React.Component {
                 handleShippingOption={handleShippingOption}
               ></StepOption>
             ),
-            5: (
-              <StepConfirm
-                wizardContext={wizardContext}
-              ></StepConfirm>
-            ),
+            5: <StepConfirm wizardContext={wizardContext}></StepConfirm>,
+            6: <StepComplete wizardContext={wizardContext}></StepComplete>,
           }[currentStep]
         }
 
@@ -188,23 +206,32 @@ export default class Wizard extends React.Component {
             <Form.Label column sm={2}>
               {currentStep}
             </Form.Label>
-            {currentStep !== end ? (
-              <Button
-                size="lg"
-                variant="info"
-                onClick={() => onAction({ ...wizardAction, type: "next" })}
-              >
-                {"Next"}
-              </Button>
-            ) : (
-              <Button
-                size="lg"
-                variant="info"
-                onClick={() => submitConfirmation}
-              >
-                {"Submit"}
-              </Button>
-            )}
+
+            {{
+              "next": (
+                <Button
+                  size="lg"
+                  variant="info"
+                  onClick={() =>
+                    onAction({ ...wizardAction, type: "next" })
+                  }
+                >
+                  {"Next"}
+                </Button>
+              ),
+              "submit": (
+                <Button
+                  size="lg"
+                  variant="info"
+                  onClick={submitConfirmation}
+                >
+                  {"Submit"}
+                </Button>
+              ),
+              "end": null,
+
+             }[buttonResolved]
+            }
           </Col>
           <Col sm={2}></Col>
         </Form.Group>
