@@ -11,21 +11,25 @@
 
 import React from "react";
 import Step from "./step";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const StepWeight = ({ wizardContext, handleWeight }) => {
   const { weight } = wizardContext;
   return (
     <Step>
-      {"StepWeight"}
-      <div><label>{"weight"}
-        <input
-          name="weight"
-          type="text"
-          value={weight}
-          onChange={handleWeight}
-        ></input>
-        </label>
-      </div>
+      <Form.Group as={Row}>
+        <Form.Label column sm={3}>{"weight"}</Form.Label>
+        <Col sm={8}>
+          <Form.Control
+            name="weight"
+            type="text"
+            value={weight}
+            onChange={handleWeight}
+          />
+        </Col>
+      </Form.Group>
     </Step>
   );
 };

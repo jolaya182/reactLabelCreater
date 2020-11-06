@@ -11,66 +11,85 @@
 
 import React from "react";
 import Step from "./step";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const StepReceiver = ({ wizardContext, handleReceiver }) => {
   const { receiver } = wizardContext;
   const { name, street, city, state, zip } = receiver;
   return (
     <Step>
-      {"StepReceiver"}
-      {"Enter the receiver's address"}
-      <div>
-        <label>
+      <Form.Label>
+        {"Enter the receiver's address"}
+      </Form.Label>
+      <Form.Group as={Row}>
+        <Form.Label column sm={2}>
           {"name"}
-          <input
+        </Form.Label>
+        <Col sm={9}>
+          <Form.Control
+            size="lg"
             name={"name"}
             onChange={handleReceiver}
             value={name}
             type="text"
           />
-        </label>
-      </div>
-      <div>
-        <label>
+        </Col>
+      </Form.Group>
+      <Form.Group as={Row}>
+        <Form.Label column sm={2}>
           {"street"}
-          <input
+        </Form.Label>
+        <Col sm={9}>
+          <Form.Control
+            size="lg"
             name={"street"}
             onChange={handleReceiver}
             value={street}
             type="text"
           />
-        </label>
-      </div>
+        </Col>
+      </Form.Group>
 
-      <div>
-        <label>
+      <Form.Group as={Row}>
+        <Form.Label column sm={2}>
           {"city"}
-          <input
+        </Form.Label>
+        <Col sm={3}>
+          <Form.Control
+            size="lg"
             name={"city"}
             onChange={handleReceiver}
             value={city}
             type="text"
           />
-        </label>
-        <label>
+        </Col>
+        <Form.Label column sm={1}>
           {"state"}
-          <input
+        </Form.Label>
+        <Col sm={2}>
+          <Form.Control
+            size="lg"
             name={"state"}
             onChange={handleReceiver}
             value={state}
             type="text"
           />
-        </label>
-        <label>
+        </Col>
+        <Form.Label column sm={1}>
           {"zip"}
-          <input
+        </Form.Label>
+        <Col sm={2}>
+          <Form.Control
+            size="lg"
             name={"zip"}
             onChange={handleReceiver}
             value={zip}
             type="text"
           />
-        </label>
-      </div>
+        </Col>
+      </Form.Group>
     </Step>
   );
 };

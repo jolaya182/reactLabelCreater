@@ -14,6 +14,9 @@ import StepSender from "./../steps/step-sender";
 import StepWeight from "./../steps/step-weight";
 import StepOption from "./../steps/step-option";
 import StepConfirm from "./../steps/step-confirm";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 /**
  *
@@ -33,23 +36,23 @@ export default class Wizard extends React.Component {
         next: 2,
         end: 5,
       },
-      currentStep: 1,
+      currentStep: 4,
     };
   }
 
-  onAction = (wizardAction) =>{
-    switch(wizardAction.type){
+  onAction = (wizardAction) => {
+    switch (wizardAction.type) {
       case "prev":
-        return this.clickPrev(wizardAction)
-        case "next":
-        return this.clickNext(wizardAction)
-        default:
-          return;
+        return this.clickPrev(wizardAction);
+      case "next":
+        return this.clickNext(wizardAction);
+      default:
+        return;
     }
-  }
+  };
 
   clickNext = (wizardAction) => {
-    const {  currentStep } = this.state;
+    const { currentStep } = this.state;
     const { prev, next, end } = wizardAction;
     let newPrev = prev;
     let newNext = next;
@@ -95,24 +98,37 @@ export default class Wizard extends React.Component {
     });
   };
 
+  caculateProgress = () => {
+    const { currentStep } = this.state;
+    return (currentStep * 100) / 5;
+  };
+
   render() {
     const { wizardContext } = this.props;
     const { shippingCost } = wizardContext;
     const { currentStep, wizardAction } = this.state;
-    const { clickNext, clickPrev } = this;
+    const { onAction, caculateProgress } = this;
     const {
       handleShippingOption,
       handleWeight,
       handleSender,
       handleReceiver,
     } = this.props;
-    const { prev, next, end } = wizardAction;
 
     return (
-      <div>
-        {/* <form> */}
-        <div>{"Shipping Label Maker"}</div>
-        <div type="text"> {"loading bar |-----------------|"}</div>
+      <Form>
+        <Form.Group>
+          {/* <form> */}
+          <Form.Label>{"Shipping Label Maker"}</Form.Label>
+          <ProgressBar>
+            <ProgressBar
+              striped
+              variant="success"
+              now={caculateProgress()}
+              key={1}
+            />
+          </ProgressBar>
+        </Form.Group>
         {
           {
             1: (
@@ -148,25 +164,18 @@ export default class Wizard extends React.Component {
           }[currentStep]
         }
 
-      {{
-        prev: 1,
-        next: 2,
-        end: 5,
-      }[wizardAction]}
-        <div>
-          <div onClick={()=>clickPrev({...wizardAction, type:"prv"})}>
-            {"<pre>"}
-            {currentStep !== 1 ? prev : null}
-          </div>
-
-          <div >{` < ${currentStep} > `}</div>
-          <div onClick={()=>clickNext({...wizardAction, type:"next"})}>
-            {"<next>"}
-            {currentStep !== end ? next : null}
-          </div>
-        </div>
-        {/* </form> */}
-      </div>
+        <Form.Group >
+            <Button size="lg" variant="info" onClick={() => onAction({ ...wizardAction, type: "prev" })}>
+              {"Previous"}
+            </Button>
+            <Form.Label column sm={3}>
+              {currentStep}
+            </Form.Label>
+            <Button size="lg" variant="info"onClick={() => onAction({ ...wizardAction, type: "next" })} >
+              {"Next"}
+            </Button>
+        </Form.Group>
+      </Form>
     );
   }
 }

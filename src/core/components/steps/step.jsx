@@ -10,8 +10,9 @@
  */
 
 import React from "react";
+import Form from 'react-bootstrap/Form'
 
 const Step = ({children}) => {
-  return <div>{children}</div>;
+  return <Form.Group>{children}</Form.Group>;
 };
 export default Step;

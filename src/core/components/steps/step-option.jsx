@@ -11,33 +11,45 @@
 
 import React from "react";
 import Step from "./step";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const StepOption = ({ wizardContext, handleShippingOption }) => {
   const { shippingOption } = wizardContext;
 
   return (
     <Step>
-        <label>
-          {"ground"}
-          <input
-            type="radio"
-            value="red"
-            checked={shippingOption === "ground"}
-            name="ground"
-            onChange={handleShippingOption}
-          />
-        </label>
-
-        <label>
-          {"priority"}
-          <input
-            type="radio"
-            value="red"
-            checked={shippingOption === "priority"}
-            name="priority"
-            onChange={handleShippingOption}
-          />
-        </label>
+      <fieldset>
+        <Form.Group as={Row}>
+          <Col sm={8}>
+            <Form.Check
+              inline
+              type="radio"
+              value="red"
+              checked={shippingOption === "ground"}
+              name="ground"
+              onChange={handleShippingOption}
+            />
+            <Form.Label column sm={2}>
+              {"ground"}
+            </Form.Label>
+            </Col>
+            <Col sm={8}>            
+              <Form.Check
+                inline
+                type="radio"
+                value="red"
+                checked={shippingOption === "priority"}
+                name="priority"
+                onChange={handleShippingOption}
+              />
+            <Form.Label column sm={2}>
+              {"priority"}
+            </Form.Label>
+          </Col>
+        </Form.Group>
+      </fieldset>
     </Step>
   );
 };

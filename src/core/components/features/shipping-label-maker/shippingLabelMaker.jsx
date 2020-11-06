@@ -82,7 +82,6 @@ export default class ShippingLabelMaker extends React.Component {
   };
 
   handleShippingOption = (evt) => {
-    evt.preventDefault();
     const { shippingObject } = this.state;
     const { weight, shippingRate } = shippingObject;
     const { name } = evt.target;
