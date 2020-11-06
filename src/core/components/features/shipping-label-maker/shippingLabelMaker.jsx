@@ -24,23 +24,23 @@ export default class ShippingLabelMaker extends React.Component {
     this.state = {
       shippingObject: {
         receiver: {
-          name: null,
-          street: null,
-          city: null,
-          state: null,
-          zip: null,
+          name: "",
+          street: "",
+          city: "",
+          state: "",
+          zip: "",
         },
         sender: {
-          name: null,
-          street: null,
-          city: null,
-          state: null,
-          zip: null,
+          name: "",
+          street: "",
+          city: "",
+          state: "",
+          zip: "",
         },
         weight: 0,
         shippingOption: null,
-        shippingRate: 0.4,  //shippingRate shippingCost 
-        shippingCost: 0,    //added for convenience 
+        shippingRate: 0.4, //shippingRate shippingCost
+        shippingCost: 0, //added for convenience
       },
     };
   }
@@ -49,12 +49,13 @@ export default class ShippingLabelMaker extends React.Component {
     evt.preventDefault();
     const { value, name } = evt.target;
     const { shippingObject } = this.state;
-    const {receiver} = shippingObject;
+    const { receiver } = shippingObject;
     const newReceiver = {
-      ...receiver, [name]: value,
+      ...receiver,
+      [name]: value,
     };
     const newShippingObject = { ...shippingObject, receiver: newReceiver };
-    this.setState({ shippingObject:newShippingObject });
+    this.setState({ shippingObject: newShippingObject });
 
     this.setState();
   };
@@ -63,12 +64,13 @@ export default class ShippingLabelMaker extends React.Component {
     evt.preventDefault();
     const { value, name } = evt.target;
     const { shippingObject } = this.state;
-    const {sender} = shippingObject;
+    const { sender } = shippingObject;
     const newSender = {
-      ...sender, [name]: value,
+      ...sender,
+      [name]: value,
     };
     const newShippingObject = { ...shippingObject, sender: newSender };
-    this.setState({ shippingObject:newShippingObject });
+    this.setState({ shippingObject: newShippingObject });
   };
 
   handleWeight = (evt) => {
@@ -95,13 +97,18 @@ export default class ShippingLabelMaker extends React.Component {
   };
 
   calculateCost = (weight, shippingRate, shippingOption) => {
-    const num =(weight * shippingRate * (shippingOption === "ground" ? 1 : 1.5));
+    const num = weight * shippingRate * (shippingOption === "ground" ? 1 : 1.5);
     return num.toFixed(2);
   };
 
   render() {
     const { shippingObject } = this.state;
-    const { handleShippingOption, handleWeight, handleSender, handleReceiver } = this;
+    const {
+      handleShippingOption,
+      handleWeight,
+      handleSender,
+      handleReceiver,
+    } = this;
     console.log("shippingObject____", shippingObject.shippingOption);
     return (
       <Wizard

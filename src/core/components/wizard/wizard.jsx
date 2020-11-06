@@ -102,7 +102,7 @@ export default class Wizard extends React.Component {
       <div>
         {/* <form> */}
         <div>{"Shipping Label Maker"}</div>
-        <div type="text"> {"load bar |------------|"}</div>
+        <div type="text"> {"loading bar |-----------------|"}</div>
         {
           {
             1: (
@@ -137,6 +137,12 @@ export default class Wizard extends React.Component {
             ),
           }[currentStep]
         }
+
+      {{
+        prev: 1,
+        next: 2,
+        end: 5,
+      }[wizardAction]}
         <div>
           <div onClick={clickPrev}>
             {"<pre>"}
