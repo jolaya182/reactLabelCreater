@@ -22,8 +22,15 @@ const StepOption = ({ wizardContext, handleShippingOption }) => {
     <Step>
       <fieldset>
         <Form.Group as={Row}>
-        <Col sm={2}></Col>
-          <Col sm={4}>
+          <Col sm={5}></Col>
+          <Col sm={2}>
+            <Form.Label>{`Shipping`}</Form.Label>
+          </Col>
+          <Col sm={5}></Col>
+        </Form.Group>
+        <Form.Group as={Row}>
+          <Col sm={4}></Col>
+          <Col sm={2}>
             <Form.Check
               inline
               type="radio"
@@ -32,24 +39,24 @@ const StepOption = ({ wizardContext, handleShippingOption }) => {
               name="ground"
               onChange={handleShippingOption}
             />
-            <Form.Label column sm={1}>
+            <Form.Label column sm={2}>
               {"ground"}
             </Form.Label>
-            </Col>
-            <Col sm={4}>            
-              <Form.Check
-                inline
-                type="radio"
-                value="red"
-                checked={shippingOption === "priority"}
-                name="priority"
-                onChange={handleShippingOption}
-              />
-            <Form.Label column sm={1}>
+          </Col>
+          <Col sm={2}>
+            <Form.Check
+              inline
+              type="radio"
+              value="red"
+              checked={shippingOption === "priority"}
+              name="priority"
+              onChange={handleShippingOption}
+            />
+            <Form.Label column sm={2}>
               {"priority"}
             </Form.Label>
           </Col>
-          <Col sm={2}></Col>
+          <Col sm={4}></Col>
         </Form.Group>
       </fieldset>
     </Step>

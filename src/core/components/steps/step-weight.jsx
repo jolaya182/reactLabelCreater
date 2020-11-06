@@ -21,7 +21,7 @@ const StepWeight = ({ wizardContext, handleWeight }) => {
     <Step>
       <Form.Group as={Row}>
       <Col sm={3}></Col>
-        <Form.Label column sm={2}>{"weight"}</Form.Label>
+        <Form.Label column sm={2}>{"Weight lb"}</Form.Label>
         <Col sm={4}>
           <Form.Control
             name="weight"

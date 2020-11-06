@@ -15,24 +15,28 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-const StepConfirm = ({ wizardContext, shippingCost }) => {
-  const { weight, shippingOption } = wizardContext;
+const StepConfirm = ({ wizardContext }) => {
+  const { weight, shippingOption, shippingCost } = wizardContext;
   return (
     <Step>
       <Form.Label>{"Confirmation"}</Form.Label>
       <Form.Group as={Row}>
-        <Form.Label column sm={3}>
+      <Col sm={4}></Col>
+        <Form.Label column sm={2}>
           {"Weight: "}
           </Form.Label>
-          <Col sm={9}>
-          {weight}
+          <Col sm={2}>
+          {`${weight} lb`}
           </Col>
+          <Col sm={4}></Col>
       </Form.Group>
+
       <Form.Group as={Row}>
-      <Form.Label column sm={3}>
+      <Col sm={4}></Col>
+      <Form.Label column sm={2}>
           {"Option: "}
           </Form.Label>
-          <Col sm={9}>
+          <Col sm={2}>
           {
             {
               ground: <div type="text">{"ground"}</div>,
@@ -40,18 +44,21 @@ const StepConfirm = ({ wizardContext, shippingCost }) => {
             }[shippingOption]
           }
           </Col>
+          <Col sm={4}></Col>
       </Form.Group>
 
       
 
 
       <Form.Group as={Row}>
-      <Form.Label column sm={3}>
+      <Col sm={4}></Col>
+      <Form.Label column sm={2}>
           {"Total:"}
           </Form.Label>
-          <Col sm={9}>
+          <Col sm={2}>
           {`$ ${shippingCost}`}
           </Col>
+          <Col sm={4}></Col>
       </Form.Group>
     </Step>
   );

@@ -37,7 +37,7 @@ export default class Wizard extends React.Component {
         next: 2,
         end: 5,
       },
-      currentStep: 1,
+      currentStep: 4,
     };
   }
 
@@ -100,15 +100,20 @@ export default class Wizard extends React.Component {
   };
 
   caculateProgress = () => {
-    const { currentStep } = this.state;
-    return (currentStep * 100) / 5;
+    const { currentStep, wizardAction } = this.state;
+    const {end} = wizardAction;
+    return (currentStep * 100) / end;
+  };
+
+  submitConfirmation = () => {
+
   };
 
   render() {
     const { wizardContext } = this.props;
-    const { shippingCost } = wizardContext;
     const { currentStep, wizardAction } = this.state;
-    const { onAction, caculateProgress } = this;
+    const { end } = wizardAction;
+    const { onAction, caculateProgress, submitConfirmation } = this;
     const {
       handleShippingOption,
       handleWeight,
@@ -117,12 +122,12 @@ export default class Wizard extends React.Component {
     } = this.props;
 
     return (
-      <Form block>
+      <Form >
         <Form.Group>
           {/* <form> */}
           <Form.Label>{"Shipping Label Maker"}</Form.Label>
           <Form.Group as={Row}>
-          <Col sm={2}></Col>
+            <Col sm={2}></Col>
             <Col sm={8}>
               <ProgressBar>
                 <ProgressBar
@@ -165,14 +170,14 @@ export default class Wizard extends React.Component {
             5: (
               <StepConfirm
                 wizardContext={wizardContext}
-                shippingCost={shippingCost}
               ></StepConfirm>
             ),
           }[currentStep]
         }
 
         <Form.Group as={Row}>
-          <Col sm={11}>
+          <Col sm={2}></Col>
+          <Col sm={8}>
             <Button
               size="lg"
               variant="info"
@@ -183,14 +188,25 @@ export default class Wizard extends React.Component {
             <Form.Label column sm={2}>
               {currentStep}
             </Form.Label>
-            <Button
-              size="lg"
-              variant="info"
-              onClick={() => onAction({ ...wizardAction, type: "next" })}
-            >
-              {"Next"}
-            </Button>
+            {currentStep !== end ? (
+              <Button
+                size="lg"
+                variant="info"
+                onClick={() => onAction({ ...wizardAction, type: "next" })}
+              >
+                {"Next"}
+              </Button>
+            ) : (
+              <Button
+                size="lg"
+                variant="info"
+                onClick={() => submitConfirmation}
+              >
+                {"Submit"}
+              </Button>
+            )}
           </Col>
+          <Col sm={2}></Col>
         </Form.Group>
       </Form>
     );
