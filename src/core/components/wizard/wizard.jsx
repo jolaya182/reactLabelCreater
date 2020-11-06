@@ -17,7 +17,8 @@ import StepConfirm from "./../steps/step-confirm";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ProgressBar from "react-bootstrap/ProgressBar";
-
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 /**
  *
  *
@@ -36,7 +37,7 @@ export default class Wizard extends React.Component {
         next: 2,
         end: 5,
       },
-      currentStep: 4,
+      currentStep: 1,
     };
   }
 
@@ -116,18 +117,24 @@ export default class Wizard extends React.Component {
     } = this.props;
 
     return (
-      <Form>
+      <Form block>
         <Form.Group>
           {/* <form> */}
           <Form.Label>{"Shipping Label Maker"}</Form.Label>
-          <ProgressBar>
-            <ProgressBar
-              striped
-              variant="success"
-              now={caculateProgress()}
-              key={1}
-            />
-          </ProgressBar>
+          <Form.Group as={Row}>
+          <Col sm={2}></Col>
+            <Col sm={8}>
+              <ProgressBar>
+                <ProgressBar
+                  striped
+                  variant="success"
+                  now={caculateProgress()}
+                  key={2}
+                />
+              </ProgressBar>
+            </Col>
+            <Col sm={3}></Col>
+          </Form.Group>
         </Form.Group>
         {
           {
@@ -164,16 +171,26 @@ export default class Wizard extends React.Component {
           }[currentStep]
         }
 
-        <Form.Group >
-            <Button size="lg" variant="info" onClick={() => onAction({ ...wizardAction, type: "prev" })}>
+        <Form.Group as={Row}>
+          <Col sm={11}>
+            <Button
+              size="lg"
+              variant="info"
+              onClick={() => onAction({ ...wizardAction, type: "prev" })}
+            >
               {"Previous"}
             </Button>
-            <Form.Label column sm={3}>
+            <Form.Label column sm={2}>
               {currentStep}
             </Form.Label>
-            <Button size="lg" variant="info"onClick={() => onAction({ ...wizardAction, type: "next" })} >
+            <Button
+              size="lg"
+              variant="info"
+              onClick={() => onAction({ ...wizardAction, type: "next" })}
+            >
               {"Next"}
             </Button>
+          </Col>
         </Form.Group>
       </Form>
     );

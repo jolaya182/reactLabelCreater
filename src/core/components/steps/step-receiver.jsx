@@ -20,10 +20,13 @@ const StepReceiver = ({ wizardContext, handleReceiver }) => {
   const { name, street, city, state, zip } = receiver;
   return (
     <Step>
-      <Form.Label>
-        {"Enter the receiver's address"}
-      </Form.Label>
+      
       <Form.Group as={Row}>
+      <Form.Label column sm={5}>
+          {"Enter the receiver's address"}
+        </Form.Label>        
+        <Col sm={6}> 
+        </Col >
         <Form.Label column sm={2}>
           {"name"}
         </Form.Label>
