@@ -15,14 +15,8 @@ import Step from "./step";
 const StepOption = ({ wizardContext, handleShippingOption }) => {
   const { shippingOption } = wizardContext;
 
-  console.log(
-    "shippingOption->",
-    shippingOption,
-    shippingOption === "priority"
-  );
   return (
     <Step>
-      {/* <form> */}
         <label>
           {"ground"}
           <input
@@ -44,7 +38,6 @@ const StepOption = ({ wizardContext, handleShippingOption }) => {
             onChange={handleShippingOption}
           />
         </label>
-      {/* </form> */}
     </Step>
   );
 };

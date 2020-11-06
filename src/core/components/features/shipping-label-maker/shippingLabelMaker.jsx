@@ -92,7 +92,7 @@ export default class ShippingLabelMaker extends React.Component {
       shippingCost: this.calculateCost(weight, shippingRate, name),
     };
     const newOBj = { shippingObject: newShippingObject };
-    console.log("newOBj", newOBj);
+    // console.log("newOBj", newOBj);
     this.setState(newOBj);
   };
 
@@ -109,7 +109,7 @@ export default class ShippingLabelMaker extends React.Component {
       handleSender,
       handleReceiver,
     } = this;
-    console.log("shippingObject____", shippingObject.shippingOption);
+    // console.log("shippingObject____", shippingObject.shippingOption);
     return (
       <Wizard
         wizardContext={shippingObject}

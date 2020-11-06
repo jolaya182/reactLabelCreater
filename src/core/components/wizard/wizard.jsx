@@ -28,6 +28,7 @@ export default class Wizard extends React.Component {
 
     this.state = {
       wizardAction: {
+        type: "",
         prev: 1,
         next: 2,
         end: 5,
@@ -36,8 +37,19 @@ export default class Wizard extends React.Component {
     };
   }
 
-  clickNext = () => {
-    const { wizardAction, currentStep } = this.state;
+  onAction = (wizardAction) =>{
+    switch(wizardAction.type){
+      case "prev":
+        return this.clickPrev(wizardAction)
+        case "next":
+        return this.clickNext(wizardAction)
+        default:
+          return;
+    }
+  }
+
+  clickNext = (wizardAction) => {
+    const {  currentStep } = this.state;
     const { prev, next, end } = wizardAction;
     let newPrev = prev;
     let newNext = next;
@@ -59,8 +71,8 @@ export default class Wizard extends React.Component {
     });
   };
 
-  clickPrev = () => {
-    const { wizardAction, currentStep } = this.state;
+  clickPrev = (wizardAction) => {
+    const { currentStep } = this.state;
     const { prev, next, end } = wizardAction;
 
     let newPrev = prev;
@@ -85,7 +97,7 @@ export default class Wizard extends React.Component {
 
   render() {
     const { wizardContext } = this.props;
-    const { shippingOption, shippingCost } = wizardContext;
+    const { shippingCost } = wizardContext;
     const { currentStep, wizardAction } = this.state;
     const { clickNext, clickPrev } = this;
     const {
@@ -95,8 +107,6 @@ export default class Wizard extends React.Component {
       handleReceiver,
     } = this.props;
     const { prev, next, end } = wizardAction;
-
-    console.log("shipping Otion", shippingOption);
 
     return (
       <div>
@@ -144,14 +154,13 @@ export default class Wizard extends React.Component {
         end: 5,
       }[wizardAction]}
         <div>
-          <div onClick={clickPrev}>
+          <div onClick={()=>clickPrev({...wizardAction, type:"prv"})}>
             {"<pre>"}
             {currentStep !== 1 ? prev : null}
           </div>
 
-          <div onClick={clickNext}>{` < ${currentStep} > `}</div>
-
-          <div onClick={clickNext}>
+          <div >{` < ${currentStep} > `}</div>
+          <div onClick={()=>clickNext({...wizardAction, type:"next"})}>
             {"<next>"}
             {currentStep !== end ? next : null}
           </div>
