@@ -27,52 +27,110 @@ const StepComplete = ({
   currentStep,
   buttonResolved,
 }) => {
-  const { weight, shippingOption, shippingCost } = wizardContext;
-  const wizardAction = { prev: 5, next: 6, end: 6 };
+  const {
+    weight,
+    shippingOption,
+    shippingCost,
+    receiver,
+    sender,
+  } = wizardContext;
 
+  const receiverName = receiver.name;
+  const receiverStreet = receiver.street;
+  const receiverCity = receiver.city;
+  const receiverState = receiver.state;
+  const receiverZip = receiver.zip;
+
+  const senderName = sender.name;
+  const senderStreet = sender.street;
+  const senderCity = sender.city;
+  const senderState = sender.state;
+  const senderZip = sender.zip;
+
+  const wizardAction = { prev: 5, next: 6, end: 6 };
   return (
     <Form.Group>
       <Form.Label>{"Congradulations this is your Confirmation"}</Form.Label>
+
       <Form.Group as={Row}>
-        <Col sm={4}></Col>
-        <Form.Label column sm={2}>
-          {"Weight: "}
+        <Col sm={2}></Col>
+        <Form.Label column sm={4}>
+          {"Receiver:"}
         </Form.Label>
-        <Col sm={2}>{`${weight} lb`}</Col>
-        <Col sm={4}></Col>
+        <Col sm={4}>
+          {receiverName}
+          <br />
+          {receiverStreet}
+          <br />
+          {receiverCity}
+          <br />
+          {receiverState}
+          <br />
+          {receiverZip}
+        </Col>
+        <Col sm={2}></Col>
       </Form.Group>
 
       <Form.Group as={Row}>
-        <Col sm={4}></Col>
-        <Form.Label column sm={2}>
+        <Col sm={2}></Col>
+        <Form.Label column sm={4}>
+          {"Sender:"}
+        </Form.Label>
+        <Col sm={4}>
+          {receiverName}
+          <br />
+          {receiverStreet}
+          <br />
+          {receiverCity}
+          <br />
+          {receiverState}
+          <br />
+          {receiverZip}
+        </Col>
+        <Col sm={2}></Col>
+      </Form.Group>
+
+      <Form.Group as={Row}>
+        <Col sm={2}></Col>
+        <Form.Label column sm={4}>
+          {"Weight: "}
+        </Form.Label>
+        <Col sm={4}>{`${weight} lb`}</Col>
+        <Col sm={2}></Col>
+      </Form.Group>
+
+      <Form.Group as={Row}>
+        <Col sm={2}></Col>
+        <Form.Label column sm={4}>
           {"Option: "}
         </Form.Label>
-        <Col sm={2}>
+        <Col sm={4}>
           {
             {
-              "1": <div type="text">{"ground"}</div>,
-              "2": <div type="text">{"priority"}</div>,
+              1: <div type="text">{"ground"}</div>,
+              2: <div type="text">{"priority"}</div>,
             }[shippingOption]
           }
         </Col>
-        <Col sm={4}></Col>
+        <Col sm={2}></Col>
       </Form.Group>
 
       <Form.Group as={Row}>
-        <Col sm={4}></Col>
-        <Form.Label column sm={2}>
+        <Col sm={2}></Col>
+        <Form.Label column sm={4}>
           {"Total:"}
         </Form.Label>
-        <Col sm={2}>{`$ ${shippingCost}`}</Col>
-        <Col sm={4}></Col>
+        <Col sm={4}>{`$ ${shippingCost}`}</Col>
+        <Col sm={2}></Col>
       </Form.Group>
+
+      <ShippingLabel wizardContext={wizardContext}></ShippingLabel>
       <Paginator
         wizardAction={wizardAction}
         onAction={onAction}
         currentStep={currentStep}
         buttonResolved={buttonResolved}
       ></Paginator>
-      <ShippingLabel wizardContext={wizardContext}></ShippingLabel>
     </Form.Group>
   );
 };
