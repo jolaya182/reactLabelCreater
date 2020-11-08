@@ -18,6 +18,6 @@ npm  start
 ```
 npm run-script build
 ```
-open production file in the build folder
+open index file in the build folder
 
 _Creates Shipping label using stepper application_
