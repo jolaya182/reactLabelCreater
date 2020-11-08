@@ -1,7 +1,7 @@
 # reactLabelMaker
 a react based font end stepper application that produces a label for shiping
 
-<img src="./src/core/pic/reactlabelMaker"/>
+<img src="src/core/pic/reactlabelMaker.gif" title="reactlabelMaker"/>
 
 ## To Run:
 
