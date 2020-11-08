@@ -34,9 +34,10 @@ const StepWeight = ({
   onAction,
   currentStep,
   handler,
+  buttonResolved
 }) => {
   const wizardAction = {prev: 2, next:4 , end:6 };
-  console.log(" wizardContext",  wizardContext)
+  // console.log(" wizardContext",  wizardContext)
   const { weight } = wizardContext;
   return (
     <Form.Group>
@@ -59,6 +60,7 @@ const StepWeight = ({
         wizardAction={wizardAction}
         onAction={onAction}
         currentStep={currentStep}
+        buttonResolved={buttonResolved}
       ></Paginator>
     </Form.Group>
   );

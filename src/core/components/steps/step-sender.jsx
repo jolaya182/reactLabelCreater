@@ -36,6 +36,7 @@ const StepSender = ({
   onAction,
   currentStep,
   handler,
+  buttonResolved
 }) => {
   const { sender } = wizardContext;
   const wizardAction = {prev: 1, next:3 , end:6 };
@@ -117,6 +118,7 @@ const StepSender = ({
         wizardAction={wizardAction}
         onAction={onAction}
         currentStep={currentStep}
+        buttonResolved={buttonResolved}
       ></Paginator>
       </Form.Group>
   );

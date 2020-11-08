@@ -10,11 +10,10 @@
  */
 
 import React from "react";
-import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
 
-const Step = ({onAction, currentStep,  wizardContext, children }) => {
-  console.log("wizardContext step", wizardContext);
+const Step = ({onAction, currentStep,  wizardContext, children, buttonResolved }) => {
+//   console.log("wizardContext step", wizardContext);
   //   const newElement = "cool";
   const {handler} = children[0].props;
   const newElement = React.cloneElement(children[0], {
@@ -22,8 +21,9 @@ const Step = ({onAction, currentStep,  wizardContext, children }) => {
     wizardContext: wizardContext,
     handler: handler,
     currentStep: currentStep,
+    buttonResolved: buttonResolved
   });
 
-  return <Form.Group as={Row}>{newElement}</Form.Group>;
+  return <Form.Group >{newElement}</Form.Group>;
 };
 export default Step;

@@ -42,6 +42,7 @@ export default class ShippingLabelMaker extends React.Component {
         shippingOption: null,
         shippingRate: 0.4, //shippingRate shippingCost
         shippingCost: 0, //added for convenience
+        errorMessage:""
       },
     };
   }
@@ -219,8 +220,30 @@ export default class ShippingLabelMaker extends React.Component {
     return gottenAllsteps;
   };
 
+  /**
+   * description: if the data on the form is validated
+   * then the shipping label will be displayed on
+   * completion
+   *
+   * @param {array} isFormValid
+   * @memberof Wizard
+   */
+  onComplete = (isFormValid) => {
+    const { wizardAction } = this.state;
+    const { end } = wizardAction;
+    // const anyErrors = this.validateForm();
+    if (!isFormValid) {
+      this.setState({
+        currentStep: end,
+        buttonResolved: "end",
+        errorMessage: [],
+      });
+    }
+    this.setState({ errorMessage: isFormValid });
+  };
+
   render() {
-    const { shippingInfo } = this.state;
+    const { shippingInfo, errorMessage } = this.state;
     const {
       handleShippingOption,
       handleWeight,
@@ -228,18 +251,17 @@ export default class ShippingLabelMaker extends React.Component {
       handleReceiver,
       isDataInputsValid,
       getAllSteps,
+      onComplete
     } = this;
     const allStepsFunctions = getAllSteps();
-    console.log("wizardContext", shippingInfo)
+    // console.log("wizardContext", shippingInfo)
     return (
       <Wizard
         wizardContext={shippingInfo}
-        handleShippingOption={handleShippingOption}
-        handleWeight={handleWeight}
-        handleSender={handleSender}
-        handleReceiver={handleReceiver}
         isDataInputsValid={isDataInputsValid}
         steps={allStepsFunctions}
+        onComplete={onComplete}
+        errorMessage={errorMessage}
       />
     );
   }

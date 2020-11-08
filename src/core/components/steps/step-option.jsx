@@ -34,12 +34,12 @@ const StepOption = ({
   onAction,
   currentStep,
   handler,
+  buttonResolved
 }) => {
   const { shippingOption } = wizardContext;
   const wizardAction = {prev: 3, next:5 , end:6 };
   return (
     <Form.Group>
-      <fieldset>
         <Form.Group as={Row}>
           <Col sm={5}></Col>
           <Col sm={2}>
@@ -81,8 +81,8 @@ const StepOption = ({
         wizardAction={wizardAction}
         onAction={onAction}
         currentStep={currentStep}
+        buttonResolved={buttonResolved}
         ></Paginator>
-      </fieldset>
     </Form.Group>
   );
 };

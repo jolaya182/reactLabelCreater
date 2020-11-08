@@ -79,8 +79,6 @@ const StepConfirm = ({
         wizardAction={wizardAction}
         onAction={onAction}
         currentStep={currentStep}
-        onComplete={onComplete}
-        isDataInputsValid={isDataInputsValid}
         buttonResolved={buttonResolved}
       ></Paginator>
     </Form.Group>

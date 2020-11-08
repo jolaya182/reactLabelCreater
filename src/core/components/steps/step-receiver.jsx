@@ -36,8 +36,9 @@ const StepReceiver = ({
   onAction,
   currentStep,
   handler,
+  buttonResolved
 }) => {
-  console.log("wizardContext step-receiver", wizardContext);
+  // console.log("wizardContext step-receiver", wizardContext);
   const { receiver } = wizardContext;
   const wizardAction = {prev: 1, next:2 , end:6 };
   const { name, street, city, state, zip } = receiver;
@@ -118,6 +119,7 @@ const StepReceiver = ({
         wizardAction={wizardAction}
         onAction={onAction}
         currentStep={currentStep}
+        buttonResolved={buttonResolved}
       ></Paginator>
       </Form.Group>
   );

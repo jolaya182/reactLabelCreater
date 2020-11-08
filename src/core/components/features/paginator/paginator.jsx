@@ -26,8 +26,6 @@ const Paginator = ({
   wizardAction,
   onAction,
   currentStep,
-  onComplete,
-  isDataInputsValid,
   buttonResolved,
 }) => {
   return (
@@ -61,7 +59,7 @@ const Paginator = ({
                 size="lg"
                 variant="info"
                 onClick={() => {
-                  onComplete(isDataInputsValid());
+                  return //onComplete(isDataInputsValid());
                 }}
               >
                 {"Submit"}
