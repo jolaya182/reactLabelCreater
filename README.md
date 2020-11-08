@@ -1,5 +1,6 @@
-# giveTakeGo
-node express based API
+# reactLabelMaker
+a react based font end stepper application that produces a label for shiping
+
 
 ## To Run:
 
