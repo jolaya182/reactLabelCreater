@@ -16,7 +16,7 @@ import barCode from "./../../../../pic/barCode.svg"; //barCode
 /**
  * description: form with the completed details
  *
- * @return {html element}
+ * @return { element}
  */
 const ShippingLabel = () => {
   return (

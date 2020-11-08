@@ -20,27 +20,17 @@ import Paginator from "./../features/paginator/paginator";
 /**
  * description: form with the receiver's input
  *
- * @param {object, object, function, integer, function, function, string, function } { 
- *   wizardAction,
- *   wizardContext,
- *   onAction,
- *   currentStep,
- *   onComplete,
- *   isDataInputsValid,
- *   buttonResolved,
- *   handler }
- * @return {html element}
- */
+ * @param {object, function, object, function, string} { wizardAction, onAction, currentStep,handler, buttonResolved }
+ * @return { element} */
 const StepReceiver = ({
   wizardContext,
   onAction,
   currentStep,
   handler,
-  buttonResolved
+  buttonResolved,
 }) => {
-  // console.log("wizardContext step-receiver", wizardContext);
   const { receiver } = wizardContext;
-  const wizardAction = {prev: 1, next:2 , end:6 };
+  const wizardAction = { prev: 1, next: 2, end: 6 };
   const { name, street, city, state, zip } = receiver;
   return (
     <Form.Group>
@@ -56,7 +46,7 @@ const StepReceiver = ({
           <Form.Control
             size="lg"
             name={"name"}
-            onChange={(e)=> handler(e)}
+            onChange={(e) => handler(e)}
             value={name}
             type="text"
           />
@@ -70,7 +60,7 @@ const StepReceiver = ({
           <Form.Control
             size="lg"
             name={"street"}
-            onChange={(e)=>handler(e)}
+            onChange={(e) => handler(e)}
             value={street}
             type="text"
           />
@@ -85,7 +75,7 @@ const StepReceiver = ({
           <Form.Control
             size="lg"
             name={"city"}
-            onChange={(e)=>handler(e)}
+            onChange={(e) => handler(e)}
             value={city}
             type="text"
           />
@@ -97,7 +87,7 @@ const StepReceiver = ({
           <Form.Control
             size="lg"
             name={"state"}
-            onChange={(e)=>handler(e)}
+            onChange={(e) => handler(e)}
             value={state}
             type="text"
           />
@@ -109,7 +99,7 @@ const StepReceiver = ({
           <Form.Control
             size="lg"
             name={"zip"}
-            onChange={(e)=>handler(e)}
+            onChange={(e) => handler(e)}
             value={zip}
             type="text"
           />
@@ -121,15 +111,7 @@ const StepReceiver = ({
         currentStep={currentStep}
         buttonResolved={buttonResolved}
       ></Paginator>
-      </Form.Group>
+    </Form.Group>
   );
 };
 export default StepReceiver;
-// StepReceiver.propTypes = {
-// wizardContext: PropTypes.object.isRequired,
-// onAction: PropTypes.func.isRequired
-// }
-// StepReceiver.defaultProps = {
-//   wizardContext: null,
-//   onAction: null
-//   }

@@ -18,26 +18,17 @@ import Paginator from "./../features/paginator/paginator";
 /**
  * description: form with the weight input
  *
- * @param {object, object, function, integer, function, function, string } {  
- *   wizardAction,
- *   wizardContext,
- *   onAction,
- *   currentStep,
- *   onComplete,
- *   isDataInputsValid,
- *   buttonResolved, 
- *   handler}
- * @return {html element}
+ * @param {object, function, object, function, string} { wizardAction, onAction, currentStep,handler, buttonResolved }
+ * @return { element}
  */
 const StepWeight = ({
   wizardContext,
   onAction,
   currentStep,
   handler,
-  buttonResolved
+  buttonResolved,
 }) => {
-  const wizardAction = {prev: 2, next:4 , end:6 };
-  // console.log(" wizardContext",  wizardContext)
+  const wizardAction = { prev: 2, next: 4, end: 6 };
   const { weight } = wizardContext;
   return (
     <Form.Group>
@@ -51,7 +42,7 @@ const StepWeight = ({
             name="weight"
             type="text"
             value={weight}
-            onChange={(e)=>handler(e)}
+            onChange={(e) => handler(e)}
           />
         </Col>
         <Col sm={3}></Col>

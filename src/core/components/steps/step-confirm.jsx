@@ -18,26 +18,17 @@ import Paginator from "./../features/paginator/paginator";
 /**
  * description: form with the comfirmation details
  *
- * @param {object, object, function, integer, function, function, string } { 
- *   wizardAction,
- *   wizardContext,
- *   onAction,
- *   currentStep,
- *   onComplete,
- *   isDataInputsValid,
- *   buttonResolved, }
- * @return {html element}
+ * @param {object, function, object, string} { wizardAction, onAction, currentStep, buttonResolved }
+ * @return { element}
  */
 const StepConfirm = ({
   wizardContext,
   onAction,
   currentStep,
-  onComplete,
-  isDataInputsValid,
   buttonResolved,
 }) => {
   const { weight, shippingOption, shippingCost } = wizardContext;
-  const wizardAction = {prev: 4, next:6 , end:6 };
+  const wizardAction = { prev: 4, next: 6, end: 6 };
 
   return (
     <Form.Group>
@@ -59,8 +50,8 @@ const StepConfirm = ({
         <Col sm={2}>
           {
             {
-              ground: <div type="text">{"ground"}</div>,
-              priority: <div type="text">{"priority"}</div>,
+              "1": <div type="text">{"ground"}</div>,
+              "2": <div type="text">{"priority"}</div>,
             }[shippingOption]
           }
         </Col>

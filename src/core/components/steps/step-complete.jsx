@@ -18,25 +18,17 @@ import Paginator from "./../features/paginator/paginator";
 /**
  * description: form with the comfirmation details
  *
- * @param {object, object, function, integer, function, function, string } { 
- *   wizardAction,
- *   wizardContext,
- *   onAction,
- *   currentStep,
- *   onComplete,
- *   isDataInputsValid,
- *   buttonResolved, }
- * @return {html element} 
+ * @param {object, function, object, string} { wizardAction, onAction, currentStep, buttonResolved }
+ * @return { element}
  */
-const StepComplete = ({ 
+const StepComplete = ({
   wizardContext,
   onAction,
   currentStep,
-  onComplete,
-  isDataInputsValid,
-  buttonResolved, }) => {
+  buttonResolved,
+}) => {
   const { weight, shippingOption, shippingCost } = wizardContext;
-  const wizardAction = {prev: 5, next:6 , end:6 };
+  const wizardAction = { prev: 5, next: 6, end: 6 };
 
   return (
     <Form.Group>
@@ -58,8 +50,8 @@ const StepComplete = ({
         <Col sm={2}>
           {
             {
-              ground: <div type="text">{"ground"}</div>,
-              priority: <div type="text">{"priority"}</div>,
+              "1": <div type="text">{"ground"}</div>,
+              "2": <div type="text">{"priority"}</div>,
             }[shippingOption]
           }
         </Col>
@@ -78,12 +70,10 @@ const StepComplete = ({
         wizardAction={wizardAction}
         onAction={onAction}
         currentStep={currentStep}
-        onComplete={onComplete}
-        isDataInputsValid={isDataInputsValid}
         buttonResolved={buttonResolved}
       ></Paginator>
       <ShippingLabel wizardContext={wizardContext}></ShippingLabel>
-      </Form.Group>
+    </Form.Group>
   );
 };
 export default StepComplete;

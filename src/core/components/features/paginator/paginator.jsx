@@ -14,20 +14,14 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-// import PropTypes from "prop-types";
 
 /**
- * description: form with the receiver's input
+ * description: these buttons tell the wizard to move to the next or previous step
  *
- * @param {object, function} { wizardContext, handleReceiver }
+ * @param {object, function, object, string} { wizardAction, onAction, currentStep, buttonResolved, }
  * @return {html element}
  */
-const Paginator = ({
-  wizardAction,
-  onAction,
-  currentStep,
-  buttonResolved,
-}) => {
+const Paginator = ({ wizardAction, onAction, currentStep, buttonResolved }) => {
   return (
     <Form.Group as={Row}>
       <Col sm={2}></Col>
@@ -59,7 +53,7 @@ const Paginator = ({
                 size="lg"
                 variant="info"
                 onClick={() => {
-                  return //onComplete(isDataInputsValid());
+                  onAction({ ...wizardAction, type: "next" });
                 }}
               >
                 {"Submit"}
@@ -74,11 +68,3 @@ const Paginator = ({
   );
 };
 export default Paginator;
-// Paginator.propTypes = {
-//   wizardAction: PropTypes.object.isRequired,
-//   onAction: PropTypes.func.isRequired,
-// };
-// Paginator.defaultProps = {
-//   wizardAction: null,
-//   onAction: null,
-// };

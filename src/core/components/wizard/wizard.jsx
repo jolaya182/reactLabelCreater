@@ -11,20 +11,11 @@ import React from "react";
 import "./../../css/app.css";
 import Step from "../steps/step";
 
-import StepReceiver from "./../steps/step-receiver";
-import StepSender from "./../steps/step-sender";
-import StepWeight from "./../steps/step-weight";
-import StepOption from "./../steps/step-option";
-import StepConfirm from "./../steps/step-confirm";
-import StepComplete from "./../steps/step-complete";
-import Paginator from "./../features/paginator/paginator";
-import Button from "react-bootstrap/Button";
-
 import Form from "react-bootstrap/Form";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 /**
  * description:
@@ -36,13 +27,13 @@ import Col from "react-bootstrap/Col";
 export default class Wizard extends React.Component {
   constructor(props) {
     super(props);
-
+    const {steps} = props;
     this.state = {
       wizardAction: {
         type: "",
         prev: 1,
         next: 2,
-        end: 6,
+        end: steps.length,
       },
       currentStep: 1,
       buttonResolved: "next",
@@ -154,7 +145,7 @@ export default class Wizard extends React.Component {
    * @param {int} currentStep
    * @param {int} end
    * @memberof Wizard
-   * @return {
+   * @return {string}
    */
   resolveRightButton = (currentStep, end) => {
     if (currentStep === end) {
@@ -164,17 +155,32 @@ export default class Wizard extends React.Component {
     return "next";
   };
 
+  /**
+   * description: calls on onComplete when the step has reached the second to last step
+   *
+   * @param {integer} buttonResolved
+   * @param {function} onComplete
+   * @memberof Wizard
+   * @return {object}
+   */
+  destructureOnComplete = (buttonResolved, onComplete) => {
+    return buttonResolved === "submit"
+      ? onComplete()
+      : { buttonName: "", errorMessage: [] };
+  };
+
   render() {
-    const { wizardContext } = this.props;
+    const { header, steps, wizardContext, onComplete } = this.props;
     const { currentStep, buttonResolved } = this.state;
-    const { onAction, caculateProgress } = this;
-    const { isDataInputsValid, steps, onComplete, errorMessage } = this.props;
+    const { onAction, caculateProgress, destructureOnComplete } = this;
+
+    const onCompleteResults = destructureOnComplete(buttonResolved, onComplete);
 
     return (
       <Form>
         <Form.Group>
           {/* <form> */}
-          <Form.Label>{"Shipping Label Maker"}</Form.Label>
+          <Form.Label>{header()}</Form.Label>
           <Form.Group as={Row}>
             <Col sm={2}></Col>
             <Col sm={8}>
@@ -191,41 +197,57 @@ export default class Wizard extends React.Component {
           </Form.Group>
         </Form.Group>
 
-        {steps && (
-          <Step
-            currentStep={currentStep}
-            onAction={onAction}
-            wizardContext={wizardContext}
-            buttonResolved={buttonResolved}
-          >
-            {steps.filter((step, idx) => {
-              return currentStep - 1 === idx ? true : false;
-            })}
-          </Step>
+        {buttonResolved !== "submit" ? (
+          steps && (
+            <Step
+              currentStep={currentStep}
+              onAction={onAction}
+              wizardContext={wizardContext}
+              buttonResolved={buttonResolved}
+            >
+              {steps.filter((step, idx) => {
+                return currentStep - 1 === idx ? true : false;
+              })}
+            </Step>
+          )
+        ) : (
+          <React.Fragment>
+            <Step
+              currentStep={currentStep}
+              onAction={onAction}
+              wizardContext={wizardContext}
+              buttonResolved={onCompleteResults.buttonName}
+            >
+              {steps.filter((step, idx) => {
+                return currentStep - 1 === idx ? true : false;
+              })}
+            </Step>
+            <Form.Group>
+              {onCompleteResults.errorMessage &&
+                onCompleteResults.errorMessage.map((message, indx) => {
+                  return (
+                    <Form.Label as={Row} key={`error-message-${indx}`}>
+                      <Col>{message}</Col>
+                    </Form.Label>
+                  );
+                })}
+            </Form.Group>
+          </React.Fragment>
         )}
-
-        <Form.Group>
-          {errorMessage &&
-            errorMessage.map((message, indx) => {
-              return (
-                <Form.Label as={Row} key={`error-message-${indx}`}>
-                  <Col>{message}</Col>
-                </Form.Label>
-              );
-            })}
-        </Form.Group>
       </Form>
     );
   }
 }
 
-// Wizard.propTypes = {
-//   steps: PropTypes.array.isRequired,
-//   wizardContext: PropTypes.object.isRequired,
-//   onComplete: PropTypes.func.isRequired,
-// };
-// Wizard.defaultProps = {
-//   steps: PropTypes.array.isRequired,
-//   wizardContext: PropTypes.object.isRequired,
-//   onComplete: PropTypes.func.isRequired,
-// };
+Wizard.propTypes = {
+  header: PropTypes.func.isRequired,
+  steps: PropTypes.array.isRequired,
+  wizardContext: PropTypes.object.isRequired,
+  onComplete: PropTypes.func.isRequired,
+};
+Wizard.defaultProps = {
+  header: null,
+  steps: null,
+  wizardContext: null,
+  onComplete: null,
+};

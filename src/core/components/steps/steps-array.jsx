@@ -22,12 +22,12 @@ import StepComplete from "./../steps/step-complete";
  * @return {array}
  */
 
-const stepsArray =[
+const stepsArray = [
   <StepReceiver></StepReceiver>,
   <StepSender></StepSender>,
   <StepWeight></StepWeight>,
   <StepOption></StepOption>,
   <StepConfirm></StepConfirm>,
   <StepComplete></StepComplete>,
-]
+];
 export default stepsArray;

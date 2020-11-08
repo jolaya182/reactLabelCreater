@@ -11,19 +11,38 @@
 
 import React from "react";
 import Form from "react-bootstrap/Form";
+import PropTypes from "prop-types";
 
-const Step = ({onAction, currentStep,  wizardContext, children, buttonResolved }) => {
-//   console.log("wizardContext step", wizardContext);
-  //   const newElement = "cool";
-  const {handler} = children[0].props;
+/**
+ * description: this function adds the 'onAction', and all other props needed
+ *
+ * @param {function, integer, object, element, string} {onAction, currentStep,  wizardContext, children, buttonResolved }
+ * @return {element}
+ */
+const Step = ({
+  onAction,
+  currentStep,
+  wizardContext,
+  children,
+  buttonResolved,
+}) => {
+  const { handler } = children[0].props;
   const newElement = React.cloneElement(children[0], {
     onAction: onAction,
     wizardContext: wizardContext,
     handler: handler,
     currentStep: currentStep,
-    buttonResolved: buttonResolved
+    buttonResolved: buttonResolved,
   });
 
-  return <Form.Group >{newElement}</Form.Group>;
+  return <Form.Group>{newElement}</Form.Group>;
 };
 export default Step;
+Step.propTypes = {
+  wizardContext: PropTypes.object.isRequired,
+  onAction: PropTypes.func.isRequired,
+};
+Step.defaultProps = {
+  wizardContext: null,
+  onAction: null,
+};

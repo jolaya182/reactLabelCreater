@@ -11,7 +11,6 @@
 import React from "react";
 import Wizard from "../../wizard/wizard";
 import Steps from "./../../steps/steps-array";
-// import PropTypes from "prop-types";
 
 /**
  *
@@ -42,7 +41,8 @@ export default class ShippingLabelMaker extends React.Component {
         shippingOption: null,
         shippingRate: 0.4, //shippingRate shippingCost
         shippingCost: 0, //added for convenience
-        errorMessage:""
+        errorMessage: "",
+        header: "Shipping Label Maker",
       },
     };
   }
@@ -54,7 +54,6 @@ export default class ShippingLabelMaker extends React.Component {
    * @memberof ShippingLabelMaker
    */
   handleReceiver = (evt) => {
-    console.log("evt!!!!")
     evt.preventDefault();
     const { value, name } = evt.target;
     const { shippingInfo } = this.state;
@@ -109,11 +108,11 @@ export default class ShippingLabelMaker extends React.Component {
   handleShippingOption = (evt) => {
     const { shippingInfo } = this.state;
     const { weight, shippingRate } = shippingInfo;
-    const { name } = evt.target;
+    const { value } = evt.target;
     const newShippingInfo = {
       ...shippingInfo,
-      shippingOption: name,
-      shippingCost: this.calculateCost(weight, shippingRate, name),
+      shippingOption: value,
+      shippingCost: this.calculateCost(weight, shippingRate, value),
     };
     const newOBj = { shippingInfo: newShippingInfo };
     this.setState(newOBj);
@@ -160,7 +159,7 @@ export default class ShippingLabelMaker extends React.Component {
       isFormValid.push("weight is not a correct number");
 
     //validate option
-    if (!(shippingOption === "ground" || shippingOption === "priority"))
+    if (!(shippingOption === "1" || shippingOption === "2"))
       isFormValid.push("shipping option was not submitted");
 
     return isFormValid.length > 0 ? isFormValid : null;
@@ -202,13 +201,19 @@ export default class ShippingLabelMaker extends React.Component {
     return placeErrors.length > 0 ? placeErrors : null;
   };
 
+  /**
+   * description: collects all the steps
+   *
+   * @memberof ShippingLabelMaker
+   * return {array}
+   */
   getAllSteps = () => {
     const allFunctions = [
       this.handleReceiver,
       this.handleSender,
       this.handleWeight,
       this.handleShippingOption,
-    ]
+    ];
     const gottenAllsteps = Steps.map((item, idx) => {
       return idx < 4
         ? React.cloneElement(item, {
@@ -228,49 +233,33 @@ export default class ShippingLabelMaker extends React.Component {
    * @param {array} isFormValid
    * @memberof Wizard
    */
-  onComplete = (isFormValid) => {
-    const { wizardAction } = this.state;
-    const { end } = wizardAction;
-    // const anyErrors = this.validateForm();
-    if (!isFormValid) {
-      this.setState({
-        currentStep: end,
-        buttonResolved: "end",
-        errorMessage: [],
-      });
+  onComplete = () => {
+    const anyErrors = this.isDataInputsValid();
+    if (!anyErrors) {
+      // allow the wizard to render the final step
+      return { buttonName: "submit", errorMessage: anyErrors };
     }
-    this.setState({ errorMessage: isFormValid });
+    // don't allow the wizard to render the final step  or go further
+    return { buttonName: null, errorMessage: anyErrors };
+  };
+
+  header = () => {
+    const { header } = this.state.shippingInfo;
+    return header;
   };
 
   render() {
     const { shippingInfo, errorMessage } = this.state;
-    const {
-      handleShippingOption,
-      handleWeight,
-      handleSender,
-      handleReceiver,
-      isDataInputsValid,
-      getAllSteps,
-      onComplete
-    } = this;
+    const { getAllSteps, onComplete, header } = this;
     const allStepsFunctions = getAllSteps();
-    // console.log("wizardContext", shippingInfo)
     return (
       <Wizard
-        wizardContext={shippingInfo}
-        isDataInputsValid={isDataInputsValid}
+        header={header}
         steps={allStepsFunctions}
+        wizardContext={shippingInfo}
         onComplete={onComplete}
         errorMessage={errorMessage}
       />
     );
   }
 }
-
-// ShippingLabelMaker.propTypes = {
-//   Wizard: PropTypes.element,
-// };
-
-// ShippingLabelMaker.defaultProp = {
-//   Wizard: null,
-// };
