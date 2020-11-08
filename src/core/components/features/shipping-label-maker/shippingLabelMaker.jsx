@@ -10,7 +10,8 @@
 
 import React from "react";
 import Wizard from "../../wizard/wizard";
-import PropTypes from "prop-types";
+import Steps from "./../../steps/steps-array";
+// import PropTypes from "prop-types";
 
 /**
  *
@@ -22,22 +23,22 @@ export default class ShippingLabelMaker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      shippingObject: {
+      shippingInfo: {
         receiver: {
           name: "",
           street: "",
           city: "",
           state: "",
-          zip: 0,
+          zip: "",
         },
         sender: {
           name: "",
           street: "",
           city: "",
           state: "",
-          zip: 0,
+          zip: "",
         },
-        weight: 0,
+        weight: "0",
         shippingOption: null,
         shippingRate: 0.4, //shippingRate shippingCost
         shippingCost: 0, //added for convenience
@@ -52,18 +53,17 @@ export default class ShippingLabelMaker extends React.Component {
    * @memberof ShippingLabelMaker
    */
   handleReceiver = (evt) => {
+    console.log("evt!!!!")
     evt.preventDefault();
     const { value, name } = evt.target;
-    const { shippingObject } = this.state;
-    const { receiver } = shippingObject;
+    const { shippingInfo } = this.state;
+    const { receiver } = shippingInfo;
     const newReceiver = {
       ...receiver,
       [name]: value,
     };
-    const newShippingObject = { ...shippingObject, receiver: newReceiver };
-    this.setState({ shippingObject: newShippingObject });
-
-    this.setState();
+    const newShippingInfo = { ...shippingInfo, receiver: newReceiver };
+    this.setState({ shippingInfo: newShippingInfo });
   };
 
   /**
@@ -75,18 +75,18 @@ export default class ShippingLabelMaker extends React.Component {
   handleSender = (evt) => {
     evt.preventDefault();
     const { value, name } = evt.target;
-    const { shippingObject } = this.state;
-    const { sender } = shippingObject;
+    const { shippingInfo } = this.state;
+    const { sender } = shippingInfo;
     const newSender = {
       ...sender,
       [name]: value,
     };
-    const newShippingObject = { ...shippingObject, sender: newSender };
-    this.setState({ shippingObject: newShippingObject });
+    const newShippingInfo = { ...shippingInfo, sender: newSender };
+    this.setState({ shippingInfo: newShippingInfo });
   };
 
   /**
-   * description: gather the weight from the step 
+   * description: gather the weight from the step
    *
    * @param {*} evt
    * @memberof ShippingLabelMaker
@@ -94,27 +94,27 @@ export default class ShippingLabelMaker extends React.Component {
   handleWeight = (evt) => {
     evt.preventDefault();
     const { value } = evt.target;
-    const { shippingObject } = this.state;
-    const newShippingObject = { ...shippingObject, weight: value };
-    this.setState({ shippingObject: newShippingObject });
+    const { shippingInfo } = this.state;
+    const newShippingInfo = { ...shippingInfo, weight: value };
+    this.setState({ shippingInfo: newShippingInfo });
   };
 
   /**
-   * description: gathers shipping option data from step 
+   * description: gathers shipping option data from step
    *
    * @param {*} evt
    * @memberof ShippingLabelMaker
    */
   handleShippingOption = (evt) => {
-    const { shippingObject } = this.state;
-    const { weight, shippingRate } = shippingObject;
+    const { shippingInfo } = this.state;
+    const { weight, shippingRate } = shippingInfo;
     const { name } = evt.target;
-    const newShippingObject = {
-      ...shippingObject,
+    const newShippingInfo = {
+      ...shippingInfo,
       shippingOption: name,
       shippingCost: this.calculateCost(weight, shippingRate, name),
     };
-    const newOBj = { shippingObject: newShippingObject };
+    const newOBj = { shippingInfo: newShippingInfo };
     this.setState(newOBj);
   };
 
@@ -139,8 +139,8 @@ export default class ShippingLabelMaker extends React.Component {
    * @return {array}
    */
   isDataInputsValid = () => {
-    const { shippingObject } = this.state;
-    const { receiver, sender, weight, shippingOption } = shippingObject;
+    const { shippingInfo } = this.state;
+    const { receiver, sender, weight, shippingOption } = shippingInfo;
     const regexNumbers = /[0-9]/g;
 
     let isFormValid = [];
@@ -201,33 +201,54 @@ export default class ShippingLabelMaker extends React.Component {
     return placeErrors.length > 0 ? placeErrors : null;
   };
 
+  getAllSteps = () => {
+    const allFunctions = [
+      this.handleReceiver,
+      this.handleSender,
+      this.handleWeight,
+      this.handleShippingOption,
+    ]
+    const gottenAllsteps = Steps.map((item, idx) => {
+      return idx < 4
+        ? React.cloneElement(item, {
+            handler: allFunctions[idx],
+            key: `all-steps-${idx}`,
+          })
+        : React.cloneElement(item, { key: `all-steps-${idx}` });
+    });
+    return gottenAllsteps;
+  };
+
   render() {
-    const { shippingObject } = this.state;
+    const { shippingInfo } = this.state;
     const {
       handleShippingOption,
       handleWeight,
       handleSender,
       handleReceiver,
       isDataInputsValid,
+      getAllSteps,
     } = this;
-
+    const allStepsFunctions = getAllSteps();
+    console.log("wizardContext", shippingInfo)
     return (
       <Wizard
-        wizardContext={shippingObject}
+        wizardContext={shippingInfo}
         handleShippingOption={handleShippingOption}
         handleWeight={handleWeight}
         handleSender={handleSender}
         handleReceiver={handleReceiver}
         isDataInputsValid={isDataInputsValid}
+        steps={allStepsFunctions}
       />
     );
   }
 }
 
-ShippingLabelMaker.propTypes = {
-  Wizard: PropTypes.element,
-};
+// ShippingLabelMaker.propTypes = {
+//   Wizard: PropTypes.element,
+// };
 
-ShippingLabelMaker.defaultProp = {
-  Wizard: null,
-};
+// ShippingLabelMaker.defaultProp = {
+//   Wizard: null,
+// };

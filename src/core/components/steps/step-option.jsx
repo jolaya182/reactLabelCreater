@@ -10,22 +10,35 @@
  */
 
 import React from "react";
-import Step from "./step";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Paginator from "./../features/paginator/paginator";
 
 /**
  * description: form with the shipping option
  *
- * @param {object, function} { wizardContext, handleWeight }
+ * @param {object, object, function, integer, function, function, string } { 
+ *   wizardAction,
+ *   wizardContext,
+ *   onAction,
+ *   currentStep,
+ *   onComplete,
+ *   isDataInputsValid,
+ *   buttonResolved, 
+ *   handler}
  * @return {html element}
  */
-const StepOption = ({ wizardContext, handleShippingOption }) => {
+const StepOption = ({
+  wizardContext,
+  onAction,
+  currentStep,
+  handler,
+}) => {
   const { shippingOption } = wizardContext;
-
+  const wizardAction = {prev: 3, next:5 , end:6 };
   return (
-    <Step>
+    <Form.Group>
       <fieldset>
         <Form.Group as={Row}>
           <Col sm={5}></Col>
@@ -43,7 +56,7 @@ const StepOption = ({ wizardContext, handleShippingOption }) => {
               value="red"
               checked={shippingOption === "ground"}
               name="ground"
-              onChange={handleShippingOption}
+              onChange={(e)=>handler(e)}
             />
             <Form.Label column sm={2}>
               {"ground"}
@@ -56,7 +69,7 @@ const StepOption = ({ wizardContext, handleShippingOption }) => {
               value="red"
               checked={shippingOption === "priority"}
               name="priority"
-              onChange={handleShippingOption}
+              onChange={(e)=>handler(e)}
             />
             <Form.Label column sm={2}>
               {"priority"}
@@ -64,8 +77,13 @@ const StepOption = ({ wizardContext, handleShippingOption }) => {
           </Col>
           <Col sm={4}></Col>
         </Form.Group>
+        <Paginator
+        wizardAction={wizardAction}
+        onAction={onAction}
+        currentStep={currentStep}
+        ></Paginator>
       </fieldset>
-    </Step>
+    </Form.Group>
   );
 };
 export default StepOption;

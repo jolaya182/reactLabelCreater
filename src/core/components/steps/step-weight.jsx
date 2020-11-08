@@ -10,21 +10,36 @@
  */
 
 import React from "react";
-import Step from "./step";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Paginator from "./../features/paginator/paginator";
 
 /**
  * description: form with the weight input
  *
- * @param {object, function} { wizardContext, handleWeight }
+ * @param {object, object, function, integer, function, function, string } {  
+ *   wizardAction,
+ *   wizardContext,
+ *   onAction,
+ *   currentStep,
+ *   onComplete,
+ *   isDataInputsValid,
+ *   buttonResolved, 
+ *   handler}
  * @return {html element}
  */
-const StepWeight = ({ wizardContext, handleWeight }) => {
+const StepWeight = ({
+  wizardContext,
+  onAction,
+  currentStep,
+  handler,
+}) => {
+  const wizardAction = {prev: 2, next:4 , end:6 };
+  console.log(" wizardContext",  wizardContext)
   const { weight } = wizardContext;
   return (
-    <Step>
+    <Form.Group>
       <Form.Group as={Row}>
         <Col sm={3}></Col>
         <Form.Label column sm={2}>
@@ -35,12 +50,17 @@ const StepWeight = ({ wizardContext, handleWeight }) => {
             name="weight"
             type="text"
             value={weight}
-            onChange={handleWeight}
+            onChange={(e)=>handler(e)}
           />
         </Col>
         <Col sm={3}></Col>
       </Form.Group>
-    </Step>
+      <Paginator
+        wizardAction={wizardAction}
+        onAction={onAction}
+        currentStep={currentStep}
+      ></Paginator>
+    </Form.Group>
   );
 };
 export default StepWeight;

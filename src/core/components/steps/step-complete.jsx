@@ -10,22 +10,36 @@
  */
 
 import React from "react";
-import Step from "./step";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ShippingLabel from "./../features/shipping-label-maker/shipping-label/shippingLabel";
-
+import Paginator from "./../features/paginator/paginator";
 /**
  * description: form with the comfirmation details
  *
- * @param {object} { wizardContext }
- * @return {html element}
+ * @param {object, object, function, integer, function, function, string } { 
+ *   wizardAction,
+ *   wizardContext,
+ *   onAction,
+ *   currentStep,
+ *   onComplete,
+ *   isDataInputsValid,
+ *   buttonResolved, }
+ * @return {html element} 
  */
-const StepComplete = ({ wizardContext }) => {
+const StepComplete = ({ 
+  wizardContext,
+  onAction,
+  currentStep,
+  onComplete,
+  isDataInputsValid,
+  buttonResolved, }) => {
   const { weight, shippingOption, shippingCost } = wizardContext;
+  const wizardAction = {prev: 5, next:6 , end:6 };
+
   return (
-    <Step>
+    <Form.Group>
       <Form.Label>{"Congradulations this is your Confirmation"}</Form.Label>
       <Form.Group as={Row}>
         <Col sm={4}></Col>
@@ -60,8 +74,16 @@ const StepComplete = ({ wizardContext }) => {
         <Col sm={2}>{`$ ${shippingCost}`}</Col>
         <Col sm={4}></Col>
       </Form.Group>
+      <Paginator
+        wizardAction={wizardAction}
+        onAction={onAction}
+        currentStep={currentStep}
+        onComplete={onComplete}
+        isDataInputsValid={isDataInputsValid}
+        buttonResolved={buttonResolved}
+      ></Paginator>
       <ShippingLabel wizardContext={wizardContext}></ShippingLabel>
-    </Step>
+      </Form.Group>
   );
 };
 export default StepComplete;

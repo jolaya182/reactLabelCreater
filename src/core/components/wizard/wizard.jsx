@@ -9,19 +9,21 @@
  */
 import React from "react";
 import "./../../css/app.css";
-import StepReceiver from "./../steps/step-receiver";
-import StepSender from "./../steps/step-sender";
-import StepWeight from "./../steps/step-weight";
-import StepOption from "./../steps/step-option";
-import StepConfirm from "./../steps/step-confirm";
-import StepComplete from "./../steps/step-complete";
+import Step from "../steps/step";
+// import StepReceiver from "./../steps/step-receiver";
+// import StepSender from "./../steps/step-sender";
+// import StepWeight from "./../steps/step-weight";
+// import StepOption from "./../steps/step-option";
+// import StepConfirm from "./../steps/step-confirm";
+// import StepComplete from "./../steps/step-complete";
+// import Paginator from "./../features/paginator/paginator";
+// import Button from "react-bootstrap/Button";
 
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 /**
  * description:
@@ -52,7 +54,7 @@ export default class Wizard extends React.Component {
    *
    * @param {*} wizardAction
    * @memberof Wizard
-   * @return 
+   * @return
    */
   onAction = (wizardAction) => {
     switch (wizardAction.type) {
@@ -136,7 +138,7 @@ export default class Wizard extends React.Component {
    * description: percentage calculation made to update the progress bar
    *
    * @memberof Wizard
-   * @return 
+   * @return
    */
   caculateProgress = () => {
     const { currentStep, wizardAction } = this.state;
@@ -162,12 +164,14 @@ export default class Wizard extends React.Component {
   };
 
   /**
-   * description:
+   * description: if the data on the form is validated
+   * then the shipping label will be displayed on
+   * completion
    *
    * @param {array} isFormValid
    * @memberof Wizard
    */
-  submitConfirmation = (isFormValid) => {
+  onComplete = (isFormValid) => {
     const { wizardAction } = this.state;
     const { end } = wizardAction;
     // const anyErrors = this.validateForm();
@@ -189,14 +193,17 @@ export default class Wizard extends React.Component {
       buttonResolved,
       errorMessage,
     } = this.state;
-    const { onAction, caculateProgress, submitConfirmation } = this;
+    const { onAction, caculateProgress, onComplete } = this;
     const {
       handleShippingOption,
       handleWeight,
       handleSender,
       handleReceiver,
       isDataInputsValid,
+      steps,
     } = this.props;
+    const currentStepElement = [steps[currentStep - 1]];
+    console.log("currentStepElement", currentStepElement )
 
     return (
       <Form>
@@ -218,79 +225,92 @@ export default class Wizard extends React.Component {
             <Col sm={3}></Col>
           </Form.Group>
         </Form.Group>
-        {
+
+        { currentStepElement &&  currentStepElement.map(()=>{
+           return (<Step
+              currentStep={currentStep}
+              onAction={onAction}
+              wizardContext={wizardContext}
+            >
+              {currentStepElement}
+            </Step>)}
+          )}
+
+        {/* {
           {
             1: (
               <StepReceiver
+                wizardAction={wizardAction}
                 wizardContext={wizardContext}
+                onAction={onAction}
+                currentStep={currentStep}
+                onComplete={onComplete}
+                isDataInputsValid={isDataInputsValid}
+                buttonResolved={buttonResolved}
                 handleReceiver={handleReceiver}
               ></StepReceiver>
             ),
             2: (
               <StepSender
+                wizardAction={wizardAction}
                 wizardContext={wizardContext}
+                onAction={onAction}
+                currentStep={currentStep}
+                onComplete={onComplete}
+                isDataInputsValid={isDataInputsValid}
+                buttonResolved={buttonResolved}
                 handleSender={handleSender}
               ></StepSender>
             ),
             3: (
               <StepWeight
+                wizardAction={wizardAction}
                 wizardContext={wizardContext}
+                onAction={onAction}
+                currentStep={currentStep}
+                onComplete={onComplete}
+                isDataInputsValid={isDataInputsValid}
+                buttonResolved={buttonResolved}
                 handleWeight={handleWeight}
               ></StepWeight>
             ),
             4: (
               <StepOption
+                wizardAction={wizardAction}
                 wizardContext={wizardContext}
+                onAction={onAction}
+                currentStep={currentStep}
+                onComplete={onComplete}
+                isDataInputsValid={isDataInputsValid}
+                buttonResolved={buttonResolved}
                 handleShippingOption={handleShippingOption}
               ></StepOption>
             ),
-            5: <StepConfirm wizardContext={wizardContext}></StepConfirm>,
-            6: <StepComplete wizardContext={wizardContext}></StepComplete>,
+            5: (
+              <StepConfirm
+                wizardAction={wizardAction}
+                wizardContext={wizardContext}
+                onAction={onAction}
+                currentStep={currentStep}
+                onComplete={onComplete}
+                isDataInputsValid={isDataInputsValid}
+                buttonResolved={buttonResolved}
+              ></StepConfirm>
+            ),
+            6: (
+              <StepComplete
+                wizardAction={wizardAction}
+                wizardContext={wizardContext}
+                onAction={onAction}
+                currentStep={currentStep}
+                onComplete={onComplete}
+                isDataInputsValid={isDataInputsValid}
+                buttonResolved={buttonResolved}
+              ></StepComplete>
+            ),
           }[currentStep]
-        }
+        } */}
 
-        <Form.Group as={Row}>
-          <Col sm={2}></Col>
-          <Col sm={8}>
-            <Button
-              size="lg"
-              variant="info"
-              onClick={() => onAction({ ...wizardAction, type: "prev" })}
-            >
-              {"Previous"}
-            </Button>
-            <Form.Label column sm={2}>
-              {currentStep}
-            </Form.Label>
-
-            {
-              {
-                next: (
-                  <Button
-                    size="lg"
-                    variant="info"
-                    onClick={() => onAction({ ...wizardAction, type: "next" })}
-                  >
-                    {"Next"}
-                  </Button>
-                ),
-                submit: (
-                  <Button
-                    size="lg"
-                    variant="info"
-                    onClick={() => {
-                      submitConfirmation(isDataInputsValid());
-                    }}
-                  >
-                    {"Submit"}
-                  </Button>
-                ),
-                end: null,
-              }[buttonResolved]
-            }
-          </Col>
-          <Col sm={2}></Col>
-        </Form.Group>
         <Form.Group>
           {errorMessage &&
             errorMessage.map((message, indx) => {
@@ -306,6 +326,13 @@ export default class Wizard extends React.Component {
   }
 }
 
-Wizard.propTypes = {
-  Fordm: PropTypes.element,
-};
+// Wizard.propTypes = {
+//   steps: PropTypes.array.isRequired,
+//   wizardContext: PropTypes.object.isRequired,
+//   onComplete: PropTypes.func.isRequired,
+// };
+// Wizard.defaultProps = {
+//   steps: PropTypes.array.isRequired,
+//   wizardContext: PropTypes.object.isRequired,
+//   onComplete: PropTypes.func.isRequired,
+// };

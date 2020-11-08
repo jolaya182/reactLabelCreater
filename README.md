@@ -16,6 +16,6 @@ npm  start
 ```
 npm run-script build
 ```
-production file will be in the build folder
+
 
 _Creates Shipping label using stepper application_

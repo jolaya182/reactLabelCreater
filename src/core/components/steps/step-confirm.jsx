@@ -10,21 +10,37 @@
  */
 
 import React from "react";
-import Step from "./step";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Paginator from "./../features/paginator/paginator";
 
 /**
  * description: form with the comfirmation details
  *
- * @param {object} { wizardContext }
+ * @param {object, object, function, integer, function, function, string } { 
+ *   wizardAction,
+ *   wizardContext,
+ *   onAction,
+ *   currentStep,
+ *   onComplete,
+ *   isDataInputsValid,
+ *   buttonResolved, }
  * @return {html element}
  */
-const StepConfirm = ({ wizardContext }) => {
+const StepConfirm = ({
+  wizardContext,
+  onAction,
+  currentStep,
+  onComplete,
+  isDataInputsValid,
+  buttonResolved,
+}) => {
   const { weight, shippingOption, shippingCost } = wizardContext;
+  const wizardAction = {prev: 4, next:6 , end:6 };
+
   return (
-    <Step>
+    <Form.Group>
       <Form.Label>{"Confirmation"}</Form.Label>
       <Form.Group as={Row}>
         <Col sm={4}></Col>
@@ -59,7 +75,15 @@ const StepConfirm = ({ wizardContext }) => {
         <Col sm={2}>{`$ ${shippingCost}`}</Col>
         <Col sm={4}></Col>
       </Form.Group>
-    </Step>
+      <Paginator
+        wizardAction={wizardAction}
+        onAction={onAction}
+        currentStep={currentStep}
+        onComplete={onComplete}
+        isDataInputsValid={isDataInputsValid}
+        buttonResolved={buttonResolved}
+      ></Paginator>
+    </Form.Group>
   );
 };
 export default StepConfirm;

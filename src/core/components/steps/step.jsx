@@ -5,20 +5,25 @@
  *
  * author: javier olaya
  *
- * description: this component is the class for all the steps
+ * description: this is a component that holds on step
  *
  */
 
 import React from "react";
+import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
 
-/**
- * description: Step base component
- *
- * @param {obj} {children}
- * @return {html}
- */
-const Step = ({ children }) => {
-  return <Form.Group>{children}</Form.Group>;
+const Step = ({onAction, currentStep,  wizardContext, children }) => {
+  console.log("wizardContext step", wizardContext);
+  //   const newElement = "cool";
+  const {handler} = children[0].props;
+  const newElement = React.cloneElement(children[0], {
+    onAction: onAction,
+    wizardContext: wizardContext,
+    handler: handler,
+    currentStep: currentStep,
+  });
+
+  return <Form.Group as={Row}>{newElement}</Form.Group>;
 };
 export default Step;
