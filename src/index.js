@@ -5,7 +5,7 @@
  *
  * author: javier olaya
  *
- * description: this main point of entrace for the application component aspect of the webpage
+ * description: this main point of entrace for the shipping application component aspect of the webpage
  */
 import React from 'react';
 import ReactDOM from 'react-dom';

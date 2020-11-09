@@ -18,8 +18,6 @@ import Col from "react-bootstrap/Col";
 import PropTypes from "prop-types";
 
 /**
- * description:
- *
  * @export
  * @class Wizard
  * @extends {React.Component}

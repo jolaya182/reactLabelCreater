@@ -5,7 +5,7 @@
  *
  * author: javier olaya
  *
- * description: this is the main component that handles the entire web application
+ * description: this is the main component that handles the entire web application (shipping label maker)
  */
 import "./core/css/app.css";
 import ShippingLabelMaker from "./core/components/features/shipping-label-maker/shippingLabelMaker";
