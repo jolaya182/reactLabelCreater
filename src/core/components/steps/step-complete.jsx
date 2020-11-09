@@ -77,15 +77,15 @@ const StepComplete = ({
           {"Sender:"}
         </Form.Label>
         <Col sm={4}>
-          {receiverName}
+          {senderName}
           <br />
-          {receiverStreet}
+          {senderStreet}
           <br />
-          {receiverCity}
+          {senderCity}
           <br />
-          {receiverState}
+          {senderState}
           <br />
-          {receiverZip}
+          {senderZip}
         </Col>
         <Col sm={2}></Col>
       </Form.Group>
