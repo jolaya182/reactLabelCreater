@@ -36,11 +36,15 @@ const StepSender = ({
   return (
     <Form.Group>
       <Form.Group as={Row}>
-        <Form.Label column sm={5}>
+      <Col sm={1}></Col>
+        <Form.Label column sm={5} className={"form-label"}>
           {"Enter the sender's address"}
         </Form.Label>
-        <Col sm={6}></Col>
-        <Form.Label column sm={2}>
+        </Form.Group>
+        
+        <Form.Group as={Row}>
+        <Col sm={1}></Col>
+        <Form.Label column sm={1}>
           {"Name"}
         </Form.Label>
         <Col sm={9}>
@@ -52,9 +56,11 @@ const StepSender = ({
             type="text"
           />
         </Col>
-      </Form.Group>
+        </Form.Group>
+      
       <Form.Group as={Row}>
-        <Form.Label column sm={2}>
+      <Col sm={1}></Col>
+        <Form.Label column sm={1}>
           {"Street"}
         </Form.Label>
         <Col sm={9}>
@@ -69,7 +75,8 @@ const StepSender = ({
       </Form.Group>
 
       <Form.Group as={Row}>
-        <Form.Label column sm={2}>
+      <Col sm={1}></Col>
+        <Form.Label column sm={1}>
           {"City"}
         </Form.Label>
         <Col sm={3}>
