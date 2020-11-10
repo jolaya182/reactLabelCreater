@@ -33,6 +33,27 @@ const StepWeight = ({
   return (
     <Form.Group>
       <Form.Group as={Row}>
+        <Col sm={5}></Col>
+        <Col sm={2}>
+          <Form.Label></Form.Label>
+        </Col>
+        <Col sm={5}></Col>
+      </Form.Group>
+      <Form.Group as={Row}>
+        <Col sm={5}></Col>
+        <Col sm={2}>
+          <Form.Label></Form.Label>
+        </Col>
+        <Col sm={5}></Col>
+      </Form.Group>
+      <Form.Group as={Row}>
+        <Col sm={5}></Col>
+        <Col sm={2}>
+          <Form.Label></Form.Label>
+        </Col>
+        <Col sm={5}></Col>
+      </Form.Group>
+      <Form.Group as={Row}>
         <Col sm={3}></Col>
         <Form.Label column sm={2}>
           {"Weight lb"}

@@ -41,7 +41,7 @@ const StepSender = ({
         </Form.Label>
         <Col sm={6}></Col>
         <Form.Label column sm={2}>
-          {"name"}
+          {"Name"}
         </Form.Label>
         <Col sm={9}>
           <Form.Control
@@ -55,7 +55,7 @@ const StepSender = ({
       </Form.Group>
       <Form.Group as={Row}>
         <Form.Label column sm={2}>
-          {"street"}
+          {"Street"}
         </Form.Label>
         <Col sm={9}>
           <Form.Control
@@ -70,7 +70,7 @@ const StepSender = ({
 
       <Form.Group as={Row}>
         <Form.Label column sm={2}>
-          {"city"}
+          {"City"}
         </Form.Label>
         <Col sm={3}>
           <Form.Control
@@ -82,7 +82,7 @@ const StepSender = ({
           />
         </Col>
         <Form.Label column sm={1}>
-          {"state"}
+          {"State"}
         </Form.Label>
         <Col sm={2}>
           <Form.Control
@@ -94,7 +94,7 @@ const StepSender = ({
           />
         </Col>
         <Form.Label column sm={1}>
-          {"zip"}
+          {"Zip"}
         </Form.Label>
         <Col sm={2}>
           <Form.Control

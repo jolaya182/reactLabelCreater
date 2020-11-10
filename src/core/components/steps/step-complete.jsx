@@ -50,7 +50,7 @@ const StepComplete = ({
   const wizardAction = { prev: 5, next: 6, end: 6 };
   return (
     <Form.Group>
-      <Form.Label>{"Congradulations this is your Confirmation"}</Form.Label>
+      <Form.Label>{"Congratulations this is your Confirmation"}</Form.Label>
 
       <Form.Group as={Row}>
         <Col sm={2}></Col>

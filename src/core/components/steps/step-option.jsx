@@ -35,12 +35,27 @@ const StepOption = ({
       <Form.Group as={Row}>
         <Col sm={5}></Col>
         <Col sm={2}>
-          <Form.Label>{`Shipping`}</Form.Label>
+          <Form.Label></Form.Label>
         </Col>
         <Col sm={5}></Col>
       </Form.Group>
       <Form.Group as={Row}>
-        <Col sm={4}></Col>
+        <Col sm={5}></Col>
+        <Col sm={2}>
+          <Form.Label></Form.Label>
+        </Col>
+        <Col sm={5}></Col>
+      </Form.Group>
+      <Form.Group as={Row}>
+        <Col sm={5}></Col>
+        <Col sm={2}>
+          <Form.Label></Form.Label>
+        </Col>
+        <Col sm={5}></Col>
+      </Form.Group>
+      <Form.Group as={Row}>
+        <Col sm={3}>{``}</Col>
+        <Form.Group sm={1}>{`Shipping`}</Form.Group>
         <Col sm={2}>
           <Form.Check
             inline
@@ -51,7 +66,7 @@ const StepOption = ({
             onChange={(e) => handler(e)}
           />
           <Form.Label column sm={2}>
-            {"ground"}
+            {"Ground"}
           </Form.Label>
         </Col>
         <Col sm={2}>
@@ -64,7 +79,7 @@ const StepOption = ({
             onChange={(e) => handler(e)}
           />
           <Form.Label column sm={2}>
-            {"priority"}
+            {"Priority"}
           </Form.Label>
         </Col>
         <Col sm={4}></Col>

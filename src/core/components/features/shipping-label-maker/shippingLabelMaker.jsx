@@ -50,7 +50,7 @@ export default class ShippingLabelMaker extends React.Component {
   /**
    * description: gathers receiver's data from the step
    *
-   * @param {*} evt
+   * @param {object} evt
    * @memberof ShippingLabelMaker
    */
   handleReceiver = (evt) => {
@@ -69,7 +69,7 @@ export default class ShippingLabelMaker extends React.Component {
   /**
    * description: gathers sender's data from the step
    *
-   * @param {*} evt
+   * @param {object} evt
    * @memberof ShippingLabelMaker
    */
   handleSender = (evt) => {
@@ -88,7 +88,7 @@ export default class ShippingLabelMaker extends React.Component {
   /**
    * description: gather the weight from the step
    *
-   * @param {*} evt
+   * @param {object} evt
    * @memberof ShippingLabelMaker
    */
   handleWeight = (evt) => {
@@ -102,7 +102,7 @@ export default class ShippingLabelMaker extends React.Component {
   /**
    * description: gathers shipping option data from step
    *
-   * @param {*} evt
+   * @param {object} evt
    * @memberof ShippingLabelMaker
    */
   handleShippingOption = (evt) => {

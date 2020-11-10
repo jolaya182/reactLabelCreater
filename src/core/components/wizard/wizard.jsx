@@ -16,6 +16,8 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import PropTypes from "prop-types";
+import "./../../css/app.css";
+
 
 /**
  * @export
@@ -169,7 +171,7 @@ export default class Wizard extends React.Component {
 
   render() {
     const { header, steps, wizardContext, onComplete } = this.props;
-    const { currentStep, buttonResolved } = this.state;
+    const { currentStep, buttonResolved, wizardAction } = this.state;
     const { onAction, caculateProgress, destructureOnComplete } = this;
 
     const onCompleteResults = destructureOnComplete(buttonResolved, onComplete);
@@ -178,14 +180,14 @@ export default class Wizard extends React.Component {
       <Form>
         <Form.Group>
           {/* <form> */}
-          <Form.Label>{header()}</Form.Label>
+          <Form.Label className={"shipping-header"}>{header()}</Form.Label>
           <Form.Group as={Row}>
             <Col sm={2}></Col>
             <Col sm={8}>
               <ProgressBar>
                 <ProgressBar
                   striped
-                  variant="success"
+                  variant={currentStep === wizardAction.end?"success":"info"}
                   now={caculateProgress()}
                   key={2}
                 />
