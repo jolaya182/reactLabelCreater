@@ -15,6 +15,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
+import "./../../../css/app.css";
+
 /**
  * description: these buttons tell the wizard to move to the next or previous step
  *
@@ -26,21 +28,23 @@ const Paginator = ({ wizardAction, onAction, currentStep, buttonResolved }) => {
     <Form.Group as={Row}>
       <Col sm={2}></Col>
       <Col sm={8}>
-        <Button
+      <Form.Group as={Row} className={"paginator"}>
+        <Col>
+        <Button sm={4}
           size="lg"
           variant="info"
           onClick={() => onAction({ ...wizardAction, type: "prev" })}
         >
           {"Previous"}
         </Button>
-        <Form.Label column sm={2}>
+        <Form.Label  sm={4}>
           {currentStep}
         </Form.Label>
 
         {
           {
             next: (
-              <Button
+              <Button sm={4}
                 size="lg"
                 variant="info"
                 onClick={() => onAction({ ...wizardAction, type: "next" })}
@@ -49,7 +53,7 @@ const Paginator = ({ wizardAction, onAction, currentStep, buttonResolved }) => {
               </Button>
             ),
             submit: (
-              <Button
+              <Button sm={4}
                 size="lg"
                 variant="info"
                 onClick={() => {
@@ -62,6 +66,8 @@ const Paginator = ({ wizardAction, onAction, currentStep, buttonResolved }) => {
             end: null,
           }[buttonResolved]
         }
+        </Col>
+        </Form.Group>
       </Col>
       <Col sm={2}></Col>
     </Form.Group>

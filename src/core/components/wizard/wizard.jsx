@@ -182,8 +182,8 @@ export default class Wizard extends React.Component {
           {/* <form> */}
           <Form.Label className={"shipping-header"}>{header()}</Form.Label>
           <Form.Group as={Row}>
-            <Col sm={2}></Col>
-            <Col sm={8}>
+            <Col sm={1}></Col>
+            <Col sm={10}>
               <ProgressBar>
                 <ProgressBar
                   striped
@@ -193,7 +193,7 @@ export default class Wizard extends React.Component {
                 />
               </ProgressBar>
             </Col>
-            <Col sm={3}></Col>
+            <Col sm={1}></Col>
           </Form.Group>
         </Form.Group>
 
@@ -222,13 +222,17 @@ export default class Wizard extends React.Component {
                 return currentStep - 1 === idx ? true : false;
               })}
             </Step>
-            <Form.Group>
+            <Form.Group as={Row}>
               {onCompleteResults.errorMessage &&
                 onCompleteResults.errorMessage.map((message, indx) => {
                   return (
-                    <Form.Label as={Row} key={`error-message-${indx}`}>
-                      <Col>{message}</Col>
+                    <React.Fragment>
+                    <Col sm={2}></Col>
+                    <Form.Label  key={`error-message-${indx}`}  column sm={8} className={"error-message"} >
+                      {message}
                     </Form.Label>
+                    <Col sm={2}></Col>
+                    </React.Fragment>
                   );
                 })}
             </Form.Group>

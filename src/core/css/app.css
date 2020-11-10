@@ -16,3 +16,13 @@
 .form-label{
   text-align:  left;
 }
+
+.error-message{
+  /* display: block; */
+  text-align:  center;
+}
+
+.paginator{
+  /* display: block; */
+  text-align:  center;
+}
