@@ -14,7 +14,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Paginator from "./../features/paginator/paginator";
-
+import PaginatorHook from "./../features/paginator/paginator-hook";
 // import PropTypes from "prop-types";
 
 /**
@@ -117,7 +117,12 @@ const StepReceiver = ({
         onAction={onAction}
         currentStep={currentStep}
         buttonResolved={buttonResolved}
-      ></Paginator>
+      ></Paginator><PaginatorHook
+        wizardAction={wizardAction}
+        onAction={onAction}
+        currentStep={currentStep}
+        buttonResolved={buttonResolved}
+      ></PaginatorHook>
     </Form.Group>
   );
 };
