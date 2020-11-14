@@ -13,7 +13,7 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Paginator from "./../features/paginator/paginator";
+import PaginatorHook from "./../features/paginator/paginator-hook";
 
 /**
  * description: form with the shipping option
@@ -84,12 +84,12 @@ const StepOption = ({
         </Col>
         <Col sm={4}></Col>
       </Form.Group>
-      <Paginator
+      <PaginatorHook
         wizardAction={wizardAction}
         onAction={onAction}
         currentStep={currentStep}
         buttonResolved={buttonResolved}
-      ></Paginator>
+      ></PaginatorHook>
     </Form.Group>
   );
 };

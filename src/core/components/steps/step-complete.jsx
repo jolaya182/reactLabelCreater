@@ -14,7 +14,8 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ShippingLabel from "./../features/shipping-label-maker/shipping-label/shippingLabel";
-import Paginator from "./../features/paginator/paginator";
+import PaginatorHook from "./../features/paginator/paginator-hook";
+
 /**
  * description: form with the comfirmation details
  *
@@ -125,12 +126,12 @@ const StepComplete = ({
       </Form.Group>
 
       <ShippingLabel wizardContext={wizardContext}></ShippingLabel>
-      <Paginator
+      <PaginatorHook
         wizardAction={wizardAction}
         onAction={onAction}
         currentStep={currentStep}
         buttonResolved={buttonResolved}
-      ></Paginator>
+      ></PaginatorHook>
     </Form.Group>
   );
 };

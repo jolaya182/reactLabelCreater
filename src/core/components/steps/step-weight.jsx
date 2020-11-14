@@ -13,7 +13,7 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Paginator from "./../features/paginator/paginator";
+import PaginatorHook from "./../features/paginator/paginator-hook";
 
 /**
  * description: form with the weight input
@@ -68,12 +68,12 @@ const StepWeight = ({
         </Col>
         <Col sm={3}></Col>
       </Form.Group>
-      <Paginator
+      <PaginatorHook
         wizardAction={wizardAction}
         onAction={onAction}
         currentStep={currentStep}
         buttonResolved={buttonResolved}
-      ></Paginator>
+      ></PaginatorHook>
     </Form.Group>
   );
 };

@@ -226,7 +226,7 @@ export default class Wizard extends React.Component {
               {onCompleteResults.errorMessage &&
                 onCompleteResults.errorMessage.map((message, indx) => {
                   return (
-                    <React.Fragment>
+                    <React.Fragment key={`wizard-error-message-${indx}`}>
                     <Col sm={2}></Col>
                     <Form.Label  key={`error-message-${indx}`}  column sm={8} className={"error-message"} >
                       {message}
