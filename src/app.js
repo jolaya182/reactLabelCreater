@@ -12,7 +12,7 @@ import "./core/css/app.css";
 import ChildSearch from "./core/components/features/child-search/child-search";
 import ShippingLabelMaker from "./core/components/features/shipping-label-maker/shippingLabelMaker";
 
-const someDiv = () =><div>{`some Dive`}</div>
+const SomeDiv = () =><div>{`some Dive`}</div>
 
 /**
  *
@@ -23,7 +23,7 @@ function App() {
   return (
       <div className="App">
         <header className="App-header">
-          <ChildSearch>{"const "}<someDiv></someDiv><ShippingLabelMaker></ShippingLabelMaker></ChildSearch>
+          <ChildSearch>{"const "}<SomeDiv></SomeDiv><ShippingLabelMaker></ShippingLabelMaker></ChildSearch>
         </header>
       </div>
   );
