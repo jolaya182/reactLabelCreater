@@ -1,5 +1,5 @@
 /**
- * title: wizard.jsx
+ * title: shippingLabelMaker.jsx
  *
  * date: 11/4/2020
  *
